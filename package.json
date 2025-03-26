@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mdi/font": "^7.4.47",
     "@stripe/stripe-js": "^6.1.0",
     "@vue-stripe/vue-stripe": "^4.5.0",
     "axios": "^1.8.4",

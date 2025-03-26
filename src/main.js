@@ -1,7 +1,17 @@
 import { createApp } from "vue";
+import { createVuetify } from "vuetify";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import "bootstrap-icons/font/bootstrap-icons.css";
+import "@mdi/font/css/materialdesignicons.css";
 import "./style.css";
+import "vuetify/styles";
 import App from "./App.vue";
 
-createApp(App).mount("#app");
+const vuetify = createVuetify({
+  icons: {
+    defaultSet: "mdi", // Use MDI as the default icon set
+  },
+});
+
+const App = createApp(App);
+App.use(vuetify);
+App.mount("#app");
