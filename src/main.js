@@ -3,7 +3,7 @@ import { createVuetify } from "vuetify";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "@mdi/font/css/materialdesignicons.css";
 import "vue-toastification/dist/index.css";
-import { Toast } from "vue-toastification";
+import Toast from "vue-toastification";
 import "./style.css";
 import "vuetify/styles";
 import App from "./App.vue";
@@ -15,4 +15,8 @@ const vuetify = createVuetify({
   },
 });
 
-createApp(App).use(router).use(Toast).use(vuetify).mount("#app");
+createApp(App)
+  .use(router)
+  .use(vuetify)
+  .use(Toast) // Correctly use Toast here
+  .mount("#app");
