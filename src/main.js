@@ -7,6 +7,7 @@ import { Toast } from "vue-toastification";
 import "./style.css";
 import "vuetify/styles";
 import App from "./App.vue";
+import router from "./router";
 
 const vuetify = createVuetify({
   icons: {
@@ -14,6 +15,4 @@ const vuetify = createVuetify({
   },
 });
 
-const App = createApp(App);
-App.use(vuetify);
-App.mount("#app");
+createApp(App).use(router).use(Toast).use(vuetify).mount("#app");
