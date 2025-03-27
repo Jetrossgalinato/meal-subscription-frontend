@@ -1,22 +1,12 @@
-import { createApp } from "vue";
-import { createVuetify } from "vuetify";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import "@mdi/font/css/materialdesignicons.css";
-import "vue-toastification/dist/index.css";
-import Toast from "vue-toastification";
-import "./style.css";
-import "vuetify/styles";
-import App from "./App.vue";
-import router from "./router";
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from './router'
+import vuetify from './plugins/vuetify'
+import { loadFonts } from './plugins/webfontloader'
 
-const vuetify = createVuetify({
-  icons: {
-    defaultSet: "mdi", // Use MDI as the default icon set
-  },
-});
+loadFonts()
 
 createApp(App)
   .use(router)
   .use(vuetify)
-  .use(Toast) // Correctly use Toast here
-  .mount("#app");
+  .mount('#app')
