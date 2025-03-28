@@ -2,7 +2,9 @@
   <v-container class="d-flex justify-center align-center" style="height: 100vh">
     <v-card class="pa-5" width="400">
       <template v-slot:title>
-        <span class="font-weight-black">Welcome to Vuetify</span>
+        <div class="text-center">
+          <span class="font-weight-black">Welcome to MealMate</span>
+        </div>
       </template>
 
       <v-card-text class="bg-surface-light pt-4">
