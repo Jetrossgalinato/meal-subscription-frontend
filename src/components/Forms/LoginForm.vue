@@ -1,18 +1,30 @@
 <template>
   <v-container class="d-flex justify-center align-center" style="height: 100vh">
-    <v-card class="pa-5" width="400">
+    <v-card class="pa-5 elevation-8" width="400">
       <template v-slot:title>
         <div class="text-center">
           <span class="font-weight-black">Welcome to MealMate</span>
         </div>
       </template>
 
-      <v-card-text class="bg-surface-light pt-4">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi,
-        ratione debitis quis est labore voluptatibus! Eaque cupiditate minima,
-        at placeat totam, magni doloremque veniam neque porro libero rerum unde
-        voluptatem!
-      </v-card-text>
+      <v-sheet class="mx-auto" width="300" style="background-color: white">
+        <v-form @submit.prevent>
+          <v-text-field
+            v-model="Email"
+            :rules="rules"
+            label="E-mail"
+          ></v-text-field>
+          <v-text-field
+            v-model="Password"
+            :rules="rules"
+            label="Password"
+          ></v-text-field>
+          <v-btn class="mt-2" type="submit" block>Login</v-btn>
+        </v-form>
+        <div class="text-center mt-2">
+          <span>Don't have an account? <a href="/register">Register</a></span>
+        </div>
+      </v-sheet>
     </v-card>
   </v-container>
 </template>
