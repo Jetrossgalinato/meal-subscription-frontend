@@ -1,14 +1,11 @@
 <template>
   <v-app>
-    <Header />
-    <Sidebar />
-    <v-main>
-      <!-- main content -->
-    </v-main>
+    <LoginForm />
   </v-app>
 </template>
 
 <script setup>
-import Header from "./components/layouts/Header.vue";
-import Sidebar from "./components/layouts/Sidebar.vue";
+import LoginForm from "./components/Forms/LoginForm.vue";
 </script>
+
+<style></style>
