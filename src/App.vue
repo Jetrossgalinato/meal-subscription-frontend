@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <LoginForm />
+    <router-view />
   </v-app>
 </template>
 

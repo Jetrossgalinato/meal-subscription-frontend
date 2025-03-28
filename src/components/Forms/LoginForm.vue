@@ -4,6 +4,7 @@
       <template v-slot:title>
         <div class="text-center">
           <span class="font-weight-black">Welcome to MealMate</span>
+          <div class="text-subtitle-1 mt-2">Login Form</div>
         </div>
       </template>
 
@@ -22,7 +23,10 @@
           <v-btn class="mt-2" type="submit" block>Login</v-btn>
         </v-form>
         <div class="text-center mt-2">
-          <span>Don't have an account? <a href="/register">Register</a></span>
+          <span
+            >Don't have an account?
+            <router-link to="/register">Register</router-link>
+          </span>
         </div>
       </v-sheet>
     </v-card>
