@@ -1,18 +1,8 @@
 <template>
   <v-app>
+    <!-- navigation bar -->
     <v-main>
-      <router-view/>
+      <!-- main content -->
     </v-main>
   </v-app>
 </template>
-
-<script>
-
-export default {
-  name: 'App',
-
-  data: () => ({
-    //
-  }),
-}
-</script>
