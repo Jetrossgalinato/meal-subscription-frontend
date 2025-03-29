@@ -47,6 +47,7 @@
 
 <script setup>
 import { ref } from "vue";
+import axios from "axios";
 
 const fullname = ref("");
 const email = ref("");
@@ -61,14 +62,29 @@ const rules = {
   matchPassword: (value) => value === password.value || "Passwords must match.",
 };
 
-const handleRegister = () => {
+const handleRegister = async () => {
   if (
     fullname.value &&
     email.value &&
     password.value &&
     confirmPassword.value
   ) {
-    alert(`Registered successfully with Email: ${email.value}`);
+    try {
+      const response = await axios.post("http://localhost:8000/api/register", {
+        fullname: fullname.value,
+        email: email.value,
+        password: password.value,
+        password_confirmation: confirmPassword.value,
+      });
+
+      alert(response.data.message);
+    } catch (error) {
+      if (error.response && error.response.data) {
+        alert(error.response.data.message || "Registration failed.");
+      } else {
+        alert("An error occurred. Please try again.");
+      }
+    }
   } else {
     alert("Please fill in all fields.");
   }
