@@ -37,7 +37,7 @@
         <div class="text-center mt-2">
           <span
             >Already have an account?
-            <router-link to="/login">Login</router-link></span
+            <router-link to="/">Login</router-link></span
           >
         </div>
       </v-sheet>

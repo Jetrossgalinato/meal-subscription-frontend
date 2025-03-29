@@ -6,11 +6,6 @@ import Register from "../components/Forms/RegisterForm.vue";
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: Home,
-  },
-  {
-    path: "/login",
     name: "Login",
     component: Login,
   },
