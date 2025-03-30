@@ -19,9 +19,18 @@
           <v-text-field
             v-model="password"
             :rules="rules"
+            :type="showPassword ? 'text' : 'password'"
             label="Password"
-            type="password"
-          ></v-text-field>
+          >
+            <template v-slot:append-inner>
+              <v-icon
+                @click.stop="togglePasswordVisibility"
+                class="cursor-pointer"
+              >
+                {{ showPassword ? "mdi-eye-off" : "mdi-eye" }}
+              </v-icon>
+            </template>
+          </v-text-field>
           <v-btn class="mt-2" type="submit" block>Login</v-btn>
         </v-form>
         <div class="text-center mt-2">
@@ -42,7 +51,12 @@ import { useRouter } from "vue-router";
 
 const email = ref("");
 const password = ref("");
+const showPassword = ref(false); // State to toggle password visibility
 const router = useRouter();
+
+const togglePasswordVisibility = () => {
+  showPassword.value = !showPassword.value; // Toggle the state
+};
 
 const handleLogin = async () => {
   if (email.value && password.value) {
