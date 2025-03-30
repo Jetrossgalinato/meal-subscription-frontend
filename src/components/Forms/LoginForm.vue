@@ -11,12 +11,12 @@
       <v-sheet class="mx-auto" width="300" style="background-color: white">
         <v-form @submit.prevent>
           <v-text-field
-            v-model="Email"
+            v-model="email"
             :rules="rules"
             label="E-mail"
           ></v-text-field>
           <v-text-field
-            v-model="Password"
+            v-model="password"
             :rules="rules"
             label="Password"
           ></v-text-field>
