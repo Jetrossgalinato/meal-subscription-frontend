@@ -35,13 +35,31 @@
 
 <script setup>
 import { ref } from "vue";
+import axios from "axios";
 
 const email = ref("");
 const password = ref("");
 
-const handleLogin = () => {
+const handleLogin = async () => {
   if (email.value && password.value) {
-    alert(`Logged in with Email: ${email.value}`);
+    try {
+      const response = await axios.post("http://localhost:8000/api/login", {
+        email: email.value,
+        password: password.value,
+      });
+
+      // Save the token (you can use localStorage or Vuex/Pinia)
+      localStorage.setItem("auth_token", response.data.token);
+
+      alert("Login successful!");
+      router.push("/home"); // Redirect to the dashboard
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        alert("Invalid credentials. Please try again.");
+      } else {
+        alert("An error occurred. Please try again later.");
+      }
+    }
   } else {
     alert("Please fill in all fields.");
   }
