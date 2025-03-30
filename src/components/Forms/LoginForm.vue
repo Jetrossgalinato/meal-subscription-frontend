@@ -9,7 +9,8 @@
       </template>
 
       <v-sheet class="mx-auto" width="300" style="background-color: white">
-        <v-form @submit.prevent>
+        <!-- Bind handleLogin to the form's submit event -->
+        <v-form @submit.prevent="handleLogin">
           <v-text-field
             v-model="email"
             :rules="rules"
@@ -19,12 +20,13 @@
             v-model="password"
             :rules="rules"
             label="Password"
+            type="password"
           ></v-text-field>
           <v-btn class="mt-2" type="submit" block>Login</v-btn>
         </v-form>
         <div class="text-center mt-2">
-          <span
-            >Don't have an account?
+          <span>
+            Don't have an account?
             <router-link to="/register">Register</router-link>
           </span>
         </div>
@@ -36,9 +38,11 @@
 <script setup>
 import { ref } from "vue";
 import axios from "axios";
+import { useRouter } from "vue-router";
 
 const email = ref("");
 const password = ref("");
+const router = useRouter();
 
 const handleLogin = async () => {
   if (email.value && password.value) {
