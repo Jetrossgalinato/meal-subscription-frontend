@@ -16,7 +16,7 @@ const logout = () => {
 
   // Redirect the user to the login page
   router.push("/");
-};
+}; //added a commit to the main branch
 </script>
 
 <style></style>
