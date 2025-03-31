@@ -66,11 +66,11 @@ const handleLogin = async () => {
         password: password.value,
       });
 
-      // Save the token (you can use localStorage or Vuex/Pinia)
+      // Save the token in localStorage
       localStorage.setItem("auth_token", response.data.token);
 
       alert("Login successful!");
-      router.push("/home"); // Redirect to the dashboard
+      router.push("/home"); // Redirect to the home page
     } catch (error) {
       if (error.response && error.response.status === 401) {
         alert("Invalid credentials. Please try again.");

@@ -8,6 +8,14 @@ const routes = [
     path: "/",
     name: "Login",
     component: Login,
+    beforeEnter: (to, from, next) => {
+      const token = localStorage.getItem("auth_token");
+      if (token) {
+        next("/home"); // Redirect to home if the user is already logged in
+      } else {
+        next(); // Allow access to the login page
+      }
+    },
   },
   {
     path: "/register",
