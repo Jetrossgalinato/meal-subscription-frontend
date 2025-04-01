@@ -15,6 +15,7 @@
           >
             <template v-slot:append>
               <v-btn
+                v-if="!rail"
                 icon="mdi-chevron-left"
                 variant="text"
                 @click.stop="rail = !rail"
