@@ -70,6 +70,8 @@ const handleLogin = async () => {
       localStorage.setItem("auth_token", response.data.token);
 
       alert("Login successful!");
+      // After successful login
+      localStorage.setItem("user_id", response.data.user.id);
       router.push("/home"); // Redirect to the home page
     } catch (error) {
       if (error.response && error.response.status === 401) {
