@@ -41,11 +41,14 @@
             title="My Profile"
             @click="goToProfile"
           ></v-list-item>
+
+          <!-- Home Section -->
           <v-list-item
-            prepend-icon="mdi-account-multiple"
-            title="Shared with me"
-            value="shared"
+            prepend-icon="mdi-home"
+            title="Home"
+            @click="goToHome"
           ></v-list-item>
+
           <v-list-item
             prepend-icon="mdi-star"
             title="Starred"
@@ -120,6 +123,11 @@ export default {
       router.push("/profile");
     };
 
+    // Navigate to the Home page
+    const goToHome = () => {
+      router.push("/home");
+    };
+
     const logout = () => {
       localStorage.removeItem("auth_token"); // Clear the token
       localStorage.removeItem("user_id"); // Clear the user ID
@@ -130,6 +138,7 @@ export default {
       user,
       editProfile,
       goToProfile,
+      goToHome,
       logout,
     };
   },
