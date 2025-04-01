@@ -30,7 +30,6 @@
               <v-textarea
                 v-model="user.dietary_preferences"
                 label="Dietary Preferences"
-                :rules="[rules.required]"
                 rows="3"
                 outlined
               ></v-textarea>
@@ -39,7 +38,6 @@
               <v-textarea
                 v-model="user.allergies"
                 label="Allergies"
-                :rules="[rules.required]"
                 rows="3"
                 outlined
               ></v-textarea>
@@ -48,7 +46,6 @@
               <v-text-field
                 v-model="user.delivery_address"
                 label="Delivery Address"
-                :rules="[rules.required]"
                 required
               ></v-text-field>
 
