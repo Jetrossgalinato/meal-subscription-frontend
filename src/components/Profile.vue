@@ -1,6 +1,13 @@
 <template>
   <v-card>
-    <v-layout>
+    <v-layout
+      style="
+        background-image: url('https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141352.jpg?t=st=1743529551~exp=1743533151~hmac=26ac14b577d3e31f19a7835c4ad5c7c5d58447c75bafb2ea7c42c2f7f06e9c54&w=1380');
+        background-size: cover;
+        background-position: center;
+        min-height: 100vh;
+      "
+    >
       <!-- Sidebar Component -->
       <Sidebar />
 
