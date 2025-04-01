@@ -41,11 +41,27 @@ const routes = [
     path: "/edit-profile",
     name: "EditProfile",
     component: EditProfile,
+    beforeEnter: (to, from, next) => {
+      const token = localStorage.getItem("auth_token");
+      if (!token) {
+        next("/"); // Redirect to login if not authenticated
+      } else {
+        next(); // Allow access if authenticated
+      }
+    },
   },
   {
     path: "/profile",
     name: "Profile",
     component: Profile,
+    beforeEnter: (to, from, next) => {
+      const token = localStorage.getItem("auth_token");
+      if (!token) {
+        next("/"); // Redirect to login if not authenticated
+      } else {
+        next(); // Allow access if authenticated
+      }
+    },
   },
 ];
 
