@@ -13,6 +13,14 @@
             :title="user.name"
             :subtitle="user.email"
           >
+            <div v-if="!rail">
+              <span
+                style="cursor: pointer; color: #1976d2; font-size: 0.875rem"
+                @click="editProfile"
+              >
+                Edit Profile
+              </span>
+            </div>
             <template v-slot:append>
               <v-btn
                 v-if="!rail"
