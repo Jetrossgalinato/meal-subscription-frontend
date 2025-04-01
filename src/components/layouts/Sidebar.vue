@@ -3,15 +3,30 @@
     <v-layout>
       <v-navigation-drawer
         v-model="drawer"
-        app
+        :rail="rail"
         permanent
-        :expand-on-hover="!isMobile"
-        :rail="!isMobile"
-        temporary
+        @click="rail = false"
       >
-        <v-list class="mt-11" density="compact" nav>
+        <v-list>
           <v-list-item
-            class="mt-11"
+            :prepend-avatar="user.avatar || ''"
+            :title="user.name"
+            :subtitle="user.email"
+          >
+            <template v-slot:append>
+              <v-btn
+                icon="mdi-chevron-left"
+                variant="text"
+                @click.stop="rail = !rail"
+              ></v-btn>
+            </template>
+          </v-list-item>
+        </v-list>
+
+        <v-divider></v-divider>
+
+        <v-list density="compact" nav>
+          <v-list-item
             prepend-icon="mdi-folder"
             title="My Files"
             value="myfiles"
@@ -26,6 +41,11 @@
             title="Starred"
             value="starred"
           ></v-list-item>
+          <v-list-item
+            prepend-icon="mdi-logout"
+            title="Logout"
+            @click="logout"
+          ></v-list-item>
         </v-list>
       </v-navigation-drawer>
 
@@ -34,21 +54,64 @@
   </v-card>
 </template>
 
-<script setup>
-import { ref, computed } from "vue";
+<script>
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
+import axios from "axios";
 
-// State for controlling the drawer visibility
-const drawer = ref(true);
+export default {
+  data() {
+    return {
+      drawer: true,
+      rail: true,
+    };
+  },
+  setup() {
+    const router = useRouter();
 
-// Detect if the screen is mobile-sized
-const isMobile = computed(() => window.innerWidth < 768);
+    // User data
+    const user = ref({
+      avatar: "", // Initially blank
+      fullName: "", // Will be fetched from the database
+      email: "", // Will be fetched from the database
+    });
 
-// Add a resize event listener to update `isMobile` dynamically
-window.addEventListener("resize", () => {
-  isMobile.value = window.innerWidth < 768;
-});
+    // Fetch user data from the API
+    const fetchUserData = async () => {
+      try {
+        // Replace '1' with the actual user ID (e.g., from localStorage or a global state)
+        const userId = localStorage.getItem("user_id") || 1;
+        const response = await axios.get(
+          `http://localhost:8000/api/user/${userId}`
+        );
+        const userData = response.data;
+
+        user.value.name = userData.name;
+        user.value.email = userData.email;
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    // Call fetchUserData when the component is mounted
+    onMounted(() => {
+      fetchUserData();
+    });
+
+    const logout = () => {
+      // Remove the authentication token from localStorage
+      localStorage.removeItem("auth_token");
+
+      // Redirect the user to the login page
+      router.push("/");
+    };
+
+    return {
+      user,
+      logout,
+    };
+  },
+};
 </script>
 
-<style scoped>
-/* Add custom styles if needed */
-</style>
+<style></style>
