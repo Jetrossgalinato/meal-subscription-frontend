@@ -10,16 +10,45 @@
           <v-card-title>Edit Profile</v-card-title>
           <v-card-text>
             <v-form ref="form" v-model="valid">
+              <!-- Full Name -->
               <v-text-field
                 v-model="user.name"
                 label="Full Name"
                 :rules="[rules.required]"
                 required
               ></v-text-field>
+
+              <!-- Email -->
               <v-text-field
                 v-model="user.email"
                 label="Email"
                 :rules="[rules.required, rules.email]"
+                required
+              ></v-text-field>
+
+              <!-- Dietary Preferences -->
+              <v-textarea
+                v-model="user.dietary_preferences"
+                label="Dietary Preferences"
+                :rules="[rules.required]"
+                rows="3"
+                outlined
+              ></v-textarea>
+
+              <!-- Allergies -->
+              <v-textarea
+                v-model="user.allergies"
+                label="Allergies"
+                :rules="[rules.required]"
+                rows="3"
+                outlined
+              ></v-textarea>
+
+              <!-- Delivery Address -->
+              <v-text-field
+                v-model="user.delivery_address"
+                label="Delivery Address"
+                :rules="[rules.required]"
                 required
               ></v-text-field>
 
@@ -67,6 +96,9 @@ const form = ref(null);
 const user = reactive({
   name: "",
   email: "",
+  dietary_preferences: "",
+  allergies: "",
+  delivery_address: "",
   avatar: null, // File input for avatar
 });
 
@@ -89,6 +121,9 @@ const fetchUserData = async () => {
     const userData = response.data;
     user.name = userData.name;
     user.email = userData.email;
+    user.dietary_preferences = userData.dietary_preferences || "";
+    user.allergies = userData.allergies || "";
+    user.delivery_address = userData.delivery_address || "";
     preview.value = userData.avatar; // Set the initial avatar preview
   } catch (error) {
     console.error("Error fetching user data:", error);
@@ -102,6 +137,9 @@ const updateProfile = async () => {
     const formData = new FormData();
     formData.append("name", user.name);
     formData.append("email", user.email);
+    formData.append("dietary_preferences", user.dietary_preferences);
+    formData.append("allergies", user.allergies);
+    formData.append("delivery_address", user.delivery_address);
     if (user.avatar) {
       formData.append("avatar", user.avatar);
     }
