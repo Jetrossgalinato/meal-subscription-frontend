@@ -4,9 +4,9 @@
       <v-navigation-drawer expand-on-hover rail>
         <v-list>
           <v-list-item
-            prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
-            subtitle="sandra_a88@gmailcom"
-            title="Sandra Adams"
+            :prepend-avatar="user.avatar || ''"
+            :title="user.name"
+            :subtitle="user.email"
           ></v-list-item>
         </v-list>
 
@@ -42,9 +42,40 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import axios from "axios";
 
 const router = useRouter();
+
+// User data
+const user = ref({
+  avatar: "", // Initially blank
+  fullName: "", // Will be fetched from the database
+  email: "", // Will be fetched from the database
+});
+
+// Fetch user data from the API
+const fetchUserData = async () => {
+  try {
+    // Replace '1' with the actual user ID (e.g., from localStorage or a global state)
+    const userId = localStorage.getItem("user_id") || 1;
+    const response = await axios.get(
+      `http://localhost:8000/api/user/${userId}`
+    );
+    const userData = response.data;
+
+    user.value.name = userData.name;
+    user.value.email = userData.email;
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+  }
+};
+
+// Call fetchUserData when the component is mounted
+onMounted(() => {
+  fetchUserData();
+});
 
 const logout = () => {
   // Remove the authentication token from localStorage
@@ -52,7 +83,7 @@ const logout = () => {
 
   // Redirect the user to the login page
   router.push("/");
-}; //added a commit to the main branch
+};
 </script>
 
 <style></style>
