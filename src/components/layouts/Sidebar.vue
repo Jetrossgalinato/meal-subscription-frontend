@@ -108,11 +108,9 @@ export default {
     });
 
     const logout = () => {
-      // Remove the authentication token from localStorage
-      localStorage.removeItem("auth_token");
-
-      // Redirect the user to the login page
-      router.push("/");
+      localStorage.removeItem("auth_token"); // Clear the token
+      localStorage.removeItem("user_id"); // Clear the user ID
+      router.push("/"); // Redirect to login
     };
 
     return {

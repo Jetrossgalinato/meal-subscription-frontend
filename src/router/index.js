@@ -26,6 +26,14 @@ const routes = [
     path: "/home",
     name: "Home",
     component: Home,
+    beforeEnter: (to, from, next) => {
+      const token = localStorage.getItem("auth_token");
+      if (!token) {
+        next("/"); // Redirect to login if not authenticated
+      } else {
+        next(); // Allow access if authenticated
+      }
+    },
   },
 ];
 
