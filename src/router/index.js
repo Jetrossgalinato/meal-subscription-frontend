@@ -3,6 +3,7 @@ import Home from "../components/Home.vue";
 import Login from "../components/Forms/LoginForm.vue";
 import Register from "../components/Forms/RegisterForm.vue";
 import EditProfile from "../components/EditProfile.vue";
+import Profile from "../components/Profile.vue";
 
 const routes = [
   {
@@ -40,6 +41,11 @@ const routes = [
     path: "/edit-profile",
     name: "EditProfile",
     component: EditProfile,
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: Profile,
   },
 ];
 

@@ -35,10 +35,11 @@
         <v-divider></v-divider>
 
         <v-list density="compact" nav>
+          <!-- My Profile Section -->
           <v-list-item
-            prepend-icon="mdi-folder"
-            title="My Files"
-            value="myfiles"
+            prepend-icon="mdi-account-circle"
+            title="My Profile"
+            @click="goToProfile"
           ></v-list-item>
           <v-list-item
             prepend-icon="mdi-account-multiple"
@@ -114,6 +115,11 @@ export default {
       router.push("/edit-profile");
     };
 
+    // Navigate to the Profile page
+    const goToProfile = () => {
+      router.push("/profile");
+    };
+
     const logout = () => {
       localStorage.removeItem("auth_token"); // Clear the token
       localStorage.removeItem("user_id"); // Clear the user ID
@@ -123,6 +129,7 @@ export default {
     return {
       user,
       editProfile,
+      goToProfile,
       logout,
     };
   },
