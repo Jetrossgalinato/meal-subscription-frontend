@@ -65,6 +65,34 @@
                 accept="image/*"
                 @change="previewAvatar"
               ></v-file-input>
+
+              <!-- Change Password Section -->
+              <v-divider class="my-4"></v-divider>
+              <h3>Change Password</h3>
+              <v-text-field
+                v-model="passwords.current_password"
+                label="Current Password"
+                :type="showPassword ? 'text' : 'password'"
+                :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+                @click:append="togglePasswordVisibility"
+                outlined
+              ></v-text-field>
+              <v-text-field
+                v-model="passwords.new_password"
+                label="New Password"
+                :type="showPassword ? 'text' : 'password'"
+                :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+                @click:append="togglePasswordVisibility"
+                outlined
+              ></v-text-field>
+              <v-text-field
+                v-model="passwords.confirm_password"
+                label="Confirm Password"
+                :type="showPassword ? 'text' : 'password'"
+                :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+                @click:append="togglePasswordVisibility"
+                outlined
+              ></v-text-field>
             </v-form>
           </v-card-text>
           <v-card-actions>
@@ -99,6 +127,15 @@ const user = reactive({
   avatar: null, // File input for avatar
 });
 
+// Password data
+const passwords = reactive({
+  current_password: "",
+  new_password: "",
+  confirm_password: "",
+});
+
+const showPassword = ref(false); // Toggle password visibility
+
 // Preview for the avatar
 const preview = ref("");
 
@@ -127,7 +164,7 @@ const fetchUserData = async () => {
   }
 };
 
-// Update user profile
+// Update user profile and password
 const updateProfile = async () => {
   try {
     const userId = localStorage.getItem("user_id");
@@ -139,6 +176,24 @@ const updateProfile = async () => {
     formData.append("delivery_address", user.delivery_address);
     if (user.avatar) {
       formData.append("avatar", user.avatar);
+    }
+
+    // Validate and include password fields
+    if (
+      passwords.current_password ||
+      passwords.new_password ||
+      passwords.confirm_password
+    ) {
+      if (!passwords.current_password) {
+        alert("Current password is required.");
+        return;
+      }
+      if (passwords.new_password !== passwords.confirm_password) {
+        alert("New password and confirm password do not match.");
+        return;
+      }
+      formData.append("current_password", passwords.current_password);
+      formData.append("new_password", passwords.new_password);
     }
 
     await axios.post(
@@ -174,6 +229,10 @@ const previewAvatar = (event) => {
     };
     reader.readAsDataURL(file);
   }
+};
+
+const togglePasswordVisibility = () => {
+  showPassword.value = !showPassword.value;
 };
 
 onMounted(() => {
