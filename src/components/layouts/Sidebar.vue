@@ -9,7 +9,7 @@
       >
         <v-list>
           <v-list-item
-            :prepend-avatar="user.avatar || ''"
+            :prepend-avatar="user.avatar || 'https://via.placeholder.com/150'"
             :title="user.name"
             :subtitle="user.email"
           >
@@ -94,8 +94,11 @@ export default {
         );
         const userData = response.data;
 
+        console.log("User Data:", userData); // Debugging: Log the response
+
         user.value.name = userData.name;
         user.value.email = userData.email;
+        user.value.avatar = userData.avatar || ""; // Set avatar
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
