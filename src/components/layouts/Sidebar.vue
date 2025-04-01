@@ -81,14 +81,13 @@ export default {
     // User data
     const user = ref({
       avatar: "", // Initially blank
-      fullName: "", // Will be fetched from the database
+      name: "", // Will be fetched from the database
       email: "", // Will be fetched from the database
     });
 
     // Fetch user data from the API
     const fetchUserData = async () => {
       try {
-        // Replace '1' with the actual user ID (e.g., from localStorage or a global state)
         const userId = localStorage.getItem("user_id") || 1;
         const response = await axios.get(
           `http://localhost:8000/api/user/${userId}`
@@ -107,6 +106,11 @@ export default {
       fetchUserData();
     });
 
+    // Navigate to the Edit Profile page
+    const editProfile = () => {
+      router.push("/edit-profile");
+    };
+
     const logout = () => {
       localStorage.removeItem("auth_token"); // Clear the token
       localStorage.removeItem("user_id"); // Clear the user ID
@@ -115,6 +119,7 @@ export default {
 
     return {
       user,
+      editProfile,
       logout,
     };
   },

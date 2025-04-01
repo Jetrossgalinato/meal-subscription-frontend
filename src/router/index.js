@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from "vue-router";
 import Home from "../components/Home.vue";
 import Login from "../components/Forms/LoginForm.vue";
 import Register from "../components/Forms/RegisterForm.vue";
+import EditProfile from "../components/EditProfile.vue";
 
 const routes = [
   {
@@ -34,6 +35,11 @@ const routes = [
         next(); // Allow access if authenticated
       }
     },
+  },
+  {
+    path: "/edit-profile",
+    name: "EditProfile",
+    component: EditProfile,
   },
 ];
 
