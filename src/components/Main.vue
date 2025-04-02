@@ -15,16 +15,10 @@
             </v-col>
           </v-row>
 
-          <!-- List of Meals -->
-          <v-row>
-            <v-col
-              v-for="meal in meals"
-              :key="meal.id"
-              cols="12"
-              md="4"
-              class="d-flex"
-            >
-              <v-card class="flex-grow-1">
+          <!-- Carousel of Meals -->
+          <v-carousel>
+            <v-carousel-item v-for="meal in meals" :key="meal.id">
+              <v-card class="mx-auto" max-width="400">
                 <v-img
                   :src="meal.image"
                   alt="Meal Image"
@@ -45,8 +39,8 @@
                   </v-btn>
                 </v-card-actions>
               </v-card>
-            </v-col>
-          </v-row>
+            </v-carousel-item>
+          </v-carousel>
         </v-container>
       </v-main>
     </v-layout>
