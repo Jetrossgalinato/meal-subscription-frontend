@@ -4,6 +4,7 @@ import Login from "../components/Forms/LoginForm.vue";
 import Register from "../components/Forms/RegisterForm.vue";
 import EditProfile from "../components/EditProfile.vue";
 import Profile from "../components/Profile.vue";
+import Main from "../components/Main.vue";
 
 const routes = [
   {
@@ -54,6 +55,19 @@ const routes = [
     path: "/profile",
     name: "Profile",
     component: Profile,
+    beforeEnter: (to, from, next) => {
+      const token = localStorage.getItem("auth_token");
+      if (!token) {
+        next("/"); // Redirect to login if not authenticated
+      } else {
+        next(); // Allow access if authenticated
+      }
+    },
+  },
+  {
+    path: "/main",
+    name: "Main",
+    component: Main,
     beforeEnter: (to, from, next) => {
       const token = localStorage.getItem("auth_token");
       if (!token) {

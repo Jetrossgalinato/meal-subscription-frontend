@@ -20,7 +20,12 @@
                     Welcome to MealMate! <br />
                     Healthy, Ready-to-Eat Meals Delivered to Your Door!
                   </h1>
-                  <v-btn color="primary" large class="mt-4">
+                  <v-btn
+                    color="primary"
+                    large
+                    class="mt-4"
+                    @click="navigateToMain"
+                  >
                     Get Started
                   </v-btn>
                 </v-col>
@@ -35,6 +40,13 @@
 
 <script setup>
 import Sidebar from "../components/layouts/Sidebar.vue"; // Import the Sidebar component
+import { useRouter } from "vue-router"; // Import Vue Router
+
+const router = useRouter();
+
+function navigateToMain() {
+  router.push("/main"); // Navigate to the main page
+}
 </script>
 
 <style>
