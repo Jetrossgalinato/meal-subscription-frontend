@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card class="bg-custom">
     <v-layout>
       <!-- Sidebar Component -->
       <Sidebar />
@@ -7,7 +7,7 @@
       <!-- Main Content -->
       <v-main>
         <v-container>
-          <h1 class="text-center font-weight-bold my-4">
+          <h1 class="text-center font-weight-bold my-4 title-text">
             Choose Your Meal Plan
           </h1>
 
@@ -15,7 +15,9 @@
           <v-row>
             <!-- Basic Plan -->
             <v-col cols="12" md="4">
-              <v-card class="pa-4 text-center plan-card">
+              <v-card
+                class="pa-4 text-center plan-card card-border text-custom"
+              >
                 <h2>Basic Plan</h2>
                 <p class="font-weight-bold">$19.99 / month</p>
                 <v-divider></v-divider>
@@ -24,13 +26,15 @@
                   <li>Access to basic recipes</li>
                   <li>Free delivery</li>
                 </ul>
-                <v-btn color="primary" class="mt-auto">Subscribe</v-btn>
+                <v-btn color="#D84315" class="mt-auto">Subscribe</v-btn>
               </v-card>
             </v-col>
 
             <!-- Premium Plan -->
             <v-col cols="12" md="4">
-              <v-card class="pa-4 text-center plan-card">
+              <v-card
+                class="pa-4 text-center plan-card card-border text-custom"
+              >
                 <h2>Premium Plan</h2>
                 <p class="font-weight-bold">$39.99 / month</p>
                 <v-divider></v-divider>
@@ -41,13 +45,15 @@
                   <li>Priority delivery</li>
                   <li>Exclusive discounts</li>
                 </ul>
-                <v-btn color="primary" class="mt-auto">Subscribe</v-btn>
+                <v-btn color="#D84315" class="mt-auto">Subscribe</v-btn>
               </v-card>
             </v-col>
 
             <!-- Family Plan -->
             <v-col cols="12" md="4">
-              <v-card class="pa-4 text-center plan-card">
+              <v-card
+                class="pa-4 text-center plan-card card-border text-custom"
+              >
                 <h2>Family Plan</h2>
                 <p class="font-weight-bold">$59.99 / month</p>
                 <v-divider></v-divider>
@@ -59,7 +65,7 @@
                   <li>Priority delivery</li>
                   <li>Exclusive family discounts</li>
                 </ul>
-                <v-btn color="primary" class="mt-auto">Subscribe</v-btn>
+                <v-btn color="#D84315" class="mt-auto">Subscribe</v-btn>
               </v-card>
             </v-col>
           </v-row>
@@ -74,8 +80,16 @@ import Sidebar from "../components/layouts/Sidebar.vue"; // Import Sidebar compo
 </script>
 
 <style scoped>
-h1 {
-  color: #1976d2;
+.bg-custom {
+  background-color: #fff8e1;
+}
+
+.title-text {
+  color: #d84315;
+}
+
+.text-custom {
+  color: #5d4037;
 }
 
 .v-card {
@@ -97,5 +111,11 @@ ul li {
   flex-direction: column;
   justify-content: space-between;
   height: 350px; /* Set a fixed height for all cards */
+}
+
+/* Add border color to cards */
+.card-border {
+  border: 2px solid #8d6e63; /* Add border with the specified color */
+  border-radius: 8px; /* Optional: Add rounded corners */
 }
 </style>
