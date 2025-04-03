@@ -6,8 +6,12 @@
     <v-card class="pa-5 elevation-8" width="400">
       <template v-slot:title>
         <div class="text-center">
-          <span class="font-weight-black">Welcome to MealMate</span>
-          <div class="text-subtitle-1 mt-2">Login Form</div>
+          <span class="font-weight-black" style="color: #d84315"
+            >Welcome to MealMate</span
+          >
+          <div class="text-subtitle-1 mt-2" style="color: #5d4037">
+            Login Form
+          </div>
         </div>
       </template>
 
@@ -33,9 +37,11 @@
               </v-icon>
             </template>
           </v-text-field>
-          <v-btn class="mt-2" type="submit" block>Login</v-btn>
+          <v-btn class="mt-2" style="color: #d84315" type="submit" block
+            >Login</v-btn
+          >
         </v-form>
-        <div class="text-center mt-2">
+        <div class="text-center mt-2" style="color: #5d4037">
           <span>
             Don't have an account?
             <router-link to="/register">Register</router-link>
