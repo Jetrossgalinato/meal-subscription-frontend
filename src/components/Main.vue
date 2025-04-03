@@ -5,7 +5,7 @@
       <Sidebar />
 
       <!-- Main Content -->
-      <v-main>
+      <v-main class="main-background">
         <v-container>
           <v-row>
             <v-col cols="12">
@@ -82,8 +82,16 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.main-background {
+  background-image: url("../assets/background.jpg"); /* Replace with your background image path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  padding: 20px;
+}
 h1 {
-  color: #1976d2;
+  color: #ff964f;
 }
 
 .v-card {
