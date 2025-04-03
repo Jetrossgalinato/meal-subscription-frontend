@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card class="sidebar-background">
     <v-layout>
       <v-navigation-drawer
         v-model="drawer"
@@ -12,10 +12,12 @@
             :prepend-avatar="user.avatar || 'https://via.placeholder.com/150'"
             :title="user.name"
             :subtitle="user.email"
+            class="sidebar-text"
           >
             <div v-if="!rail">
               <span
-                style="cursor: pointer; color: #1976d2; font-size: 0.875rem"
+                style="cursor: pointer; font-size: 0.875rem"
+                class="edit-profile-link"
                 @click="editProfile"
               >
                 Edit Profile
@@ -39,6 +41,7 @@
           <v-list-item
             prepend-icon="mdi-account-circle"
             title="My Profile"
+            class="sidebar-text"
             @click="goToProfile"
           ></v-list-item>
 
@@ -46,6 +49,7 @@
           <v-list-item
             prepend-icon="mdi-home"
             title="Home"
+            class="sidebar-text"
             @click="goToHome"
           ></v-list-item>
 
@@ -54,6 +58,7 @@
             v-if="isAdmin"
             prepend-icon="mdi-view-dashboard"
             title="Dashboard"
+            class="sidebar-text"
             @click="goToDashboard"
           ></v-list-item>
 
@@ -61,6 +66,7 @@
           <v-list-item
             prepend-icon="mdi-logout"
             title="Logout"
+            class="sidebar-text"
             @click="logout"
           ></v-list-item>
         </v-list>
@@ -161,4 +167,25 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+/* Sidebar Background */
+.sidebar-background {
+  background-color: #fff8e1; /* Soft Cream */
+}
+
+/* Sidebar Text and Icons */
+.sidebar-text {
+  color: #5d4037 !important; /* Deep Brown */
+}
+
+/* Edit Profile Link */
+.edit-profile-link {
+  color: #5d4037; /* Deep Brown */
+}
+
+/* Active Menu Item */
+.v-list-item--active {
+  background-color: #d84315 !important; /* Burnt Orange */
+  color: #fff !important; /* White text for active item */
+}
+</style>
