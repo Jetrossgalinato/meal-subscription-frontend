@@ -29,6 +29,42 @@
             </v-col>
           </v-row>
 
+          <!-- Upload Meals -->
+          <h2 class="my-4">Upload a New Meal</h2>
+          <v-row>
+            <v-col cols="12" md="6">
+              <v-card class="pa-4">
+                <v-form @submit.prevent="uploadMeal">
+                  <v-text-field
+                    v-model="meal.name"
+                    label="Meal Name"
+                    required
+                  ></v-text-field>
+                  <v-textarea
+                    v-model="meal.description"
+                    label="Meal Description"
+                    required
+                  ></v-textarea>
+                  <v-text-field
+                    v-model="meal.price"
+                    label="Meal Price"
+                    type="number"
+                    required
+                  ></v-text-field>
+                  <v-file-input
+                    v-model="meal.image"
+                    label="Meal Image"
+                    accept="image/*"
+                    required
+                  ></v-file-input>
+                  <v-btn type="submit" color="primary" class="mt-4">
+                    Upload Meal
+                  </v-btn>
+                </v-form>
+              </v-card>
+            </v-col>
+          </v-row>
+
           <!-- Recent Users -->
           <h2 class="my-4">Recent Users</h2>
           <v-row>
@@ -60,6 +96,14 @@ const stats = ref({
   recent_users: [],
 });
 
+// Meal upload form data
+const meal = ref({
+  name: "",
+  description: "",
+  price: "",
+  image: null,
+});
+
 // Fetch admin stats from the backend
 const fetchAdminStats = async () => {
   try {
@@ -69,6 +113,34 @@ const fetchAdminStats = async () => {
     stats.value = response.data.data; // Update stats with backend data
   } catch (error) {
     console.error("Error fetching admin stats:", error);
+  }
+};
+
+// Upload meal to the backend
+const uploadMeal = async () => {
+  try {
+    const formData = new FormData();
+    formData.append("name", meal.value.name);
+    formData.append("description", meal.value.description);
+    formData.append("price", meal.value.price);
+    formData.append("image", meal.value.image);
+
+    const response = await axios.post(
+      "http://localhost:8000/api/meals",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    alert("Meal uploaded successfully!");
+    meal.value = { name: "", description: "", price: "", image: null }; // Reset form
+    fetchAdminStats(); // Refresh stats
+  } catch (error) {
+    console.error("Error uploading meal:", error);
+    alert("Failed to upload meal. Please try again.");
   }
 };
 
