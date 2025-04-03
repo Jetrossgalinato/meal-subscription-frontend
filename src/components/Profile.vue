@@ -31,14 +31,14 @@
               <v-col cols="12" md="8">
                 <v-list dense>
                   <v-list-item>
-                    <v-list-item-title
+                    <v-list-item-title class="list-title"
                       ><strong>Full Name:</strong></v-list-item-title
                     >
                     <v-list-item-subtitle>{{ user.name }}</v-list-item-subtitle>
                   </v-list-item>
 
                   <v-list-item>
-                    <v-list-item-title
+                    <v-list-item-title class="list-title"
                       ><strong>Email:</strong></v-list-item-title
                     >
                     <v-list-item-subtitle>{{
@@ -47,7 +47,7 @@
                   </v-list-item>
 
                   <v-list-item>
-                    <v-list-item-title
+                    <v-list-item-title class="list-title"
                       ><strong>Dietary Preferences:</strong></v-list-item-title
                     >
                     <v-list-item-subtitle>{{
@@ -56,7 +56,7 @@
                   </v-list-item>
 
                   <v-list-item>
-                    <v-list-item-title
+                    <v-list-item-title class="list-title"
                       ><strong>Allergies:</strong></v-list-item-title
                     >
                     <v-list-item-subtitle>{{
@@ -65,7 +65,7 @@
                   </v-list-item>
 
                   <v-list-item>
-                    <v-list-item-title
+                    <v-list-item-title class="list-title"
                       ><strong>Delivery Address:</strong></v-list-item-title
                     >
                     <v-list-item-subtitle>{{
@@ -126,5 +126,10 @@ onMounted(() => {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+}
+
+/* Apply color to list item titles */
+.list-title {
+  color: #5d4037; /* Deep Brown */
 }
 </style>

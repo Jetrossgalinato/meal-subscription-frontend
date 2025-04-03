@@ -1,5 +1,5 @@
 <template>
-  <v-card class="bg-custom">
+  <v-card>
     <v-layout>
       <!-- Sidebar Component -->
       <Sidebar />
@@ -80,10 +80,6 @@ import Sidebar from "../components/layouts/Sidebar.vue"; // Import Sidebar compo
 </script>
 
 <style scoped>
-.bg-custom {
-  background-color: #fff8e1;
-}
-
 .title-text {
   color: #d84315;
 }
