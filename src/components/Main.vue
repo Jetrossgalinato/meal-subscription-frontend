@@ -18,7 +18,7 @@
           <!-- Carousel of Meals -->
           <v-carousel>
             <v-carousel-item v-for="meal in meals" :key="meal.id">
-              <v-card class="mx-auto" max-width="400">
+              <v-card class="mx-auto" max-width="400" elevation="10">
                 <v-img
                   :src="meal.image"
                   alt="Meal Image"
@@ -31,10 +31,10 @@
                   <p><strong>Price:</strong> ${{ meal.price }}</p>
                 </v-card-text>
                 <v-card-actions>
-                  <v-btn color="primary" @click="goToMealPlan(meal)">
+                  <v-btn color="#D84315" @click="goToMealPlan(meal)">
                     Subscribe
                   </v-btn>
-                  <v-btn color="secondary" @click="addToCart(meal)">
+                  <v-btn color="#8D6E63" @click="addToCart(meal)">
                     Add to Cart
                   </v-btn>
                 </v-card-actions>
@@ -95,7 +95,7 @@ onMounted(() => {
   padding: 20px;
 }
 h1 {
-  color: #ff964f;
+  color: #d84315;
 }
 
 .v-card {
