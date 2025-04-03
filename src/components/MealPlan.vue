@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card class="bg-custom">
     <v-layout>
       <!-- Sidebar Component -->
       <Sidebar />
@@ -16,7 +16,7 @@
             <!-- Basic Plan -->
             <v-col cols="12" md="4">
               <v-card
-                class="pa-4 text-center plan-card card-border text-custom"
+                class="pa-4 text-center plan-card card-border text-custom elevation-7"
               >
                 <h2>Basic Plan</h2>
                 <p class="font-weight-bold">$19.99 / month</p>
@@ -33,7 +33,7 @@
             <!-- Premium Plan -->
             <v-col cols="12" md="4">
               <v-card
-                class="pa-4 text-center plan-card card-border text-custom"
+                class="pa-4 text-center plan-card card-border text-custom elevation-7"
               >
                 <h2>Premium Plan</h2>
                 <p class="font-weight-bold">$39.99 / month</p>
@@ -52,7 +52,7 @@
             <!-- Family Plan -->
             <v-col cols="12" md="4">
               <v-card
-                class="pa-4 text-center plan-card card-border text-custom"
+                class="pa-4 text-center plan-card card-border text-custom elevation-7"
               >
                 <h2>Family Plan</h2>
                 <p class="font-weight-bold">$59.99 / month</p>
@@ -80,6 +80,9 @@ import Sidebar from "../components/layouts/Sidebar.vue"; // Import Sidebar compo
 </script>
 
 <style scoped>
+bg-custom {
+  background-color: #fff5f5;
+}
 .title-text {
   color: #d84315;
 }
