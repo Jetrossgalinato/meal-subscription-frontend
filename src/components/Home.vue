@@ -21,8 +21,9 @@
                     Healthy, Ready-to-Eat Meals Delivered to Your Door!
                   </h1>
                   <v-btn
-                    color="primary"
+                    color="#D84315"
                     large
+                    elevation="10"
                     class="mt-4"
                     @click="navigateToMain"
                   >
