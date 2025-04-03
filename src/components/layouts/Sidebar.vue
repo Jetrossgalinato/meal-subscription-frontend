@@ -49,11 +49,15 @@
             @click="goToHome"
           ></v-list-item>
 
+          <!-- Admin Dashboard Section (Visible only for admins) -->
           <v-list-item
-            prepend-icon="mdi-star"
-            title="Starred"
-            value="starred"
+            v-if="isAdmin"
+            prepend-icon="mdi-view-dashboard"
+            title="Dashboard"
+            @click="goToDashboard"
           ></v-list-item>
+
+          <!-- Logout Section -->
           <v-list-item
             prepend-icon="mdi-logout"
             title="Logout"
@@ -77,6 +81,7 @@ export default {
     return {
       drawer: true,
       rail: true,
+      isAdmin: false, // Track if the user is an admin
     };
   },
   setup() {
@@ -108,10 +113,8 @@ export default {
       }
     };
 
-    // Call fetchUserData when the component is mounted
-    onMounted(() => {
-      fetchUserData();
-    });
+    // Check if the user is an admin
+    const isAdmin = ref(localStorage.getItem("is_admin") === "1");
 
     // Navigate to the Edit Profile page
     const editProfile = () => {
@@ -128,17 +131,30 @@ export default {
       router.push("/home");
     };
 
+    // Navigate to the Admin Dashboard
+    const goToDashboard = () => {
+      router.push("/admin/dashboard");
+    };
+
     const logout = () => {
       localStorage.removeItem("auth_token"); // Clear the token
       localStorage.removeItem("user_id"); // Clear the user ID
+      localStorage.removeItem("is_admin"); // Clear the admin status
       router.push("/"); // Redirect to login
     };
 
+    // Call fetchUserData when the component is mounted
+    onMounted(() => {
+      fetchUserData();
+    });
+
     return {
       user,
+      isAdmin,
       editProfile,
       goToProfile,
       goToHome,
+      goToDashboard,
       logout,
     };
   },
