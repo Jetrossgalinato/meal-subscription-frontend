@@ -66,7 +66,7 @@ const fetchAdminStats = async () => {
     const response = await axios.get(
       "http://localhost:8000/api/admin/dashboard"
     );
-    stats.value = response.data.data;
+    stats.value = response.data.data; // Update stats with backend data
   } catch (error) {
     console.error("Error fetching admin stats:", error);
   }
