@@ -6,6 +6,7 @@ import EditProfile from "../components/EditProfile.vue";
 import Profile from "../components/Profile.vue";
 import Main from "../components/Main.vue";
 import AdminDashboard from "../components/AdminView/AdminDashboard.vue";
+import MealPlan from "../components/MealPlan.vue";
 
 const routes = [
   {
@@ -89,6 +90,20 @@ const routes = [
         next(); // Allow access if authenticated and admin
       } else {
         next("/"); // Redirect non-admin users to the login page
+      }
+    },
+  },
+  {
+    path: "/meal-plan/:mealId",
+    name: "MealPlan",
+    component: MealPlan,
+    props: true,
+    beforeEnter: (to, from, next) => {
+      const token = localStorage.getItem("auth_token");
+      if (!token) {
+        next("/"); // Redirect to login if not authenticated
+      } else {
+        next(); // Allow access if authenticated
       }
     },
   },
