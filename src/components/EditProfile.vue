@@ -7,7 +7,7 @@
       <!-- Main Content -->
       <v-main>
         <v-card>
-          <v-card-title>Edit Profile</v-card-title>
+          <v-card-title style="color: #5d4037">Edit Profile</v-card-title>
           <v-card-text>
             <v-form ref="form" v-model="valid">
               <!-- Full Name -->
@@ -68,7 +68,7 @@
 
               <!-- Change Password Section -->
               <v-divider class="my-4"></v-divider>
-              <h3>Change Password</h3>
+              <h3 style="color: #5d4037">Change Password</h3>
               <v-text-field
                 v-model="passwords.current_password"
                 label="Current Password"
@@ -96,10 +96,10 @@
             </v-form>
           </v-card-text>
           <v-card-actions>
-            <v-btn color="primary" @click="updateProfile" :disabled="!valid">
+            <v-btn color="#D84315" @click="updateProfile" :disabled="!valid">
               Save Changes
             </v-btn>
-            <v-btn color="secondary" @click="cancelEdit">Cancel</v-btn>
+            <v-btn color="#8D6E63" @click="cancelEdit">Cancel</v-btn>
           </v-card-actions>
         </v-card>
       </v-main>

@@ -168,11 +168,6 @@ export default {
 </script>
 
 <style scoped>
-/* Sidebar Background */
-.sidebar-background {
-  background-color: #fff8e1; /* Soft Cream */
-}
-
 /* Sidebar Text and Icons */
 .sidebar-text {
   color: #5d4037 !important; /* Deep Brown */
