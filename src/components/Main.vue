@@ -31,7 +31,7 @@
                   <p><strong>Price:</strong> ${{ meal.price }}</p>
                 </v-card-text>
                 <v-card-actions>
-                  <v-btn color="primary" @click="subscribeToMeal(meal)">
+                  <v-btn color="primary" @click="goToMealPlan(meal)">
                     Subscribe
                   </v-btn>
                   <v-btn color="secondary" @click="addToCart(meal)">
@@ -49,10 +49,12 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router"; // Import Vue Router
 import Sidebar from "../components/layouts/Sidebar.vue"; // Import Sidebar component
 
 // List of meals
 const meals = ref([]);
+const router = useRouter(); // Initialize Vue Router
 
 // Fetch meals from the backend
 const fetchMeals = async () => {
@@ -64,10 +66,12 @@ const fetchMeals = async () => {
   }
 };
 
-// Subscribe to a meal
-const subscribeToMeal = (meal) => {
-  alert(`You have subscribed to ${meal.name}!`);
-  // Add logic to handle subscription (e.g., API call)
+// Navigate to MealPlan.vue
+const goToMealPlan = (meal) => {
+  router.push({
+    name: "MealPlan", // The route name for MealPlan.vue
+    params: { mealId: meal.id }, // Pass the meal ID as a route parameter
+  });
 };
 
 // Add meal to cart
