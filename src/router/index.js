@@ -94,10 +94,9 @@ const routes = [
     },
   },
   {
-    path: "/meal-plan/:mealId",
+    path: "/meal-plan",
     name: "MealPlan",
     component: MealPlan,
-    props: true,
     beforeEnter: (to, from, next) => {
       const token = localStorage.getItem("auth_token");
       if (!token) {
