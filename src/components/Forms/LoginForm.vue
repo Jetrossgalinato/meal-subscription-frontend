@@ -68,11 +68,26 @@ const handleLogin = async () => {
         password: password.value,
       });
 
-      localStorage.setItem("auth_token", response.data.token);
+      console.log("Login Response:", response.data); // Debug the response
+
+      const { token, user } = response.data;
+
+      // Save the token and user info in localStorage
+      localStorage.setItem("auth_token", token);
+      localStorage.setItem("user_id", user.id);
+      localStorage.setItem("is_admin", user.is_admin); // Save is_admin status
+
       alert("Login successful!");
-      localStorage.setItem("user_id", response.data.user.id);
-      router.push("/home");
+
+      // Redirect based on user role
+      if (user.is_admin === 1) {
+        // Explicitly check if is_admin is 1
+        router.push("/admin/dashboard"); // Redirect admin to AdminDashboard
+      } else {
+        router.push("/home"); // Redirect regular users to the homepage
+      }
     } catch (error) {
+      console.error("Login Error:", error); // Debug the error
       if (error.response && error.response.status === 401) {
         alert("Invalid credentials. Please try again.");
       } else {

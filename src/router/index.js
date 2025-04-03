@@ -5,6 +5,7 @@ import Register from "../components/Forms/RegisterForm.vue";
 import EditProfile from "../components/EditProfile.vue";
 import Profile from "../components/Profile.vue";
 import Main from "../components/Main.vue";
+import AdminDashboard from "../components/AdminView/AdminDashboard.vue";
 
 const routes = [
   {
@@ -74,6 +75,20 @@ const routes = [
         next("/"); // Redirect to login if not authenticated
       } else {
         next(); // Allow access if authenticated
+      }
+    },
+  },
+  {
+    path: "/admin/dashboard",
+    name: "AdminDashboard",
+    component: AdminDashboard,
+    beforeEnter: (to, from, next) => {
+      const token = localStorage.getItem("auth_token");
+      const isAdmin = localStorage.getItem("is_admin") === "1"; // Check if the user is an admin
+      if (token && isAdmin) {
+        next(); // Allow access if authenticated and admin
+      } else {
+        next("/"); // Redirect non-admin users to the login page
       }
     },
   },
