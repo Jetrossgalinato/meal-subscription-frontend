@@ -51,6 +51,7 @@
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router"; // Import Vue Router
 import Sidebar from "../components/layouts/Sidebar.vue"; // Import Sidebar component
+import { cartStore } from "../cartStore.js"; // Import the cart store
 
 // List of meals
 const meals = ref([]);
@@ -76,8 +77,7 @@ const goToMealPlan = (meal) => {
 
 // Add meal to cart
 const addToCart = (meal) => {
-  alert(`${meal.name} has been added to your cart!`);
-  // Add logic to handle adding to cart (e.g., API call)
+  cartStore.addToCart(meal); // Use the cart store to add the meal
 };
 
 onMounted(() => {
