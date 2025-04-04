@@ -26,7 +26,13 @@
                   <li>Access to basic recipes</li>
                   <li>Free delivery</li>
                 </ul>
-                <v-btn color="#D84315" class="mt-auto">Subscribe</v-btn>
+                <v-btn
+                  color="#D84315"
+                  class="mt-auto"
+                  @click="goToPayment('Basic Plan', 19.99)"
+                >
+                  Subscribe
+                </v-btn>
               </v-card>
             </v-col>
 
@@ -45,7 +51,13 @@
                   <li>Priority delivery</li>
                   <li>Exclusive discounts</li>
                 </ul>
-                <v-btn color="#D84315" class="mt-auto">Subscribe</v-btn>
+                <v-btn
+                  color="#D84315"
+                  class="mt-auto"
+                  @click="goToPayment('Premium Plan', 39.99)"
+                >
+                  Subscribe
+                </v-btn>
               </v-card>
             </v-col>
 
@@ -65,7 +77,13 @@
                   <li>Priority delivery</li>
                   <li>Exclusive family discounts</li>
                 </ul>
-                <v-btn color="#D84315" class="mt-auto">Subscribe</v-btn>
+                <v-btn
+                  color="#D84315"
+                  class="mt-auto"
+                  @click="goToPayment('Family Plan', 59.99)"
+                >
+                  Subscribe
+                </v-btn>
               </v-card>
             </v-col>
           </v-row>
@@ -77,10 +95,21 @@
 
 <script setup>
 import Sidebar from "../components/layouts/Sidebar.vue"; // Import Sidebar component
+import { useRouter } from "vue-router"; // Import Vue Router
+
+const router = useRouter();
+
+// Navigate to the payment page
+const goToPayment = (planName, price) => {
+  router.push({
+    name: "PaymentPage", // The route name for the payment page
+    query: { plan: planName, price: price }, // Pass the plan name and price as query parameters
+  });
+};
 </script>
 
 <style scoped>
-bg-custom {
+.bg-custom {
   background-color: #fff5f5;
 }
 .title-text {
