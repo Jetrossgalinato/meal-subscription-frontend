@@ -51,7 +51,6 @@
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router"; // Import Vue Router
 import Sidebar from "../components/layouts/Sidebar.vue"; // Import Sidebar component
-import { cartStore } from "../cartStore.js"; // Import the cart store
 
 // List of meals
 const meals = ref([]);
@@ -76,8 +75,30 @@ const goToMealPlan = (meal) => {
 };
 
 // Add meal to cart
-const addToCart = (meal) => {
-  cartStore.addToCart(meal); // Use the cart store to add the meal
+const addToCart = async (meal) => {
+  try {
+    const response = await fetch("http://localhost:8000/api/cart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("auth_token")}`, // Include auth token
+      },
+      body: JSON.stringify({
+        meal_id: meal.id,
+        quantity: 1, // Default quantity is 1
+      }),
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      alert(`${meal.name} has been added to your cart!`);
+    } else {
+      alert(data.message || "Failed to add meal to cart.");
+    }
+  } catch (error) {
+    console.error("Error adding meal to cart:", error);
+    alert("An error occurred while adding the meal to the cart.");
+  }
 };
 
 onMounted(() => {
