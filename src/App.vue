@@ -4,12 +4,6 @@
   </v-app>
 </template>
 
-<script setup>
-import { onMounted } from "vue";
-
-onMounted(() => {
-  document.title = "Meal Mate";
-});
-</script>
+<script setup></script>
 
 <style></style>
