@@ -19,7 +19,7 @@
               <v-card-title>{{ item.meal.name }}</v-card-title>
               <v-card-text>
                 <p>{{ item.meal.description }}</p>
-                <p><strong>Price:</strong> ${{ item.meal.price }}</p>
+                <p><strong>Price:</strong> ${{ item.meal.price.toFixed(2) }}</p>
 
                 <!-- Quantity Management -->
                 <div class="quantity-controls">
@@ -83,14 +83,15 @@ const fetchCartItems = async () => {
 
     const data = await response.json();
 
-    // Ensure all items have a quantity and correct data structure
+    // Ensure all items have a quantity of 1 and price is a valid number
     cartItems.value = data.map((item) => ({
       ...item,
       meal: {
         ...item.meal,
-        image: item.meal.image || "default-image-path.jpg", // Fallback image if none exists
+        image: item.meal.image || "default-image-path.jpg", // Fallback image
+        price: parseFloat(item.meal.price) || 0, // Ensure price is a number
       },
-      quantity: item.quantity || 1,
+      quantity: 1, // Default quantity to 1
     }));
   } catch (error) {
     console.error("Error fetching cart items:", error);
