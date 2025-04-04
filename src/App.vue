@@ -5,7 +5,11 @@
 </template>
 
 <script setup>
-import LoginForm from "./components/Forms/LoginForm.vue";
+import { onMounted } from "vue";
+
+onMounted(() => {
+  document.title = "Meal Mate";
+});
 </script>
 
 <style></style>
