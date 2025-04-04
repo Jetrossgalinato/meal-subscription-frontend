@@ -1,11 +1,11 @@
 <template>
-  <v-card>
-    <v-layout>
-      <!-- Sidebar Component -->
-      <Sidebar />
+  <v-layout>
+    <!-- Sidebar Component (Separate) -->
+    <Sidebar />
 
-      <!-- Main Content -->
-      <v-main>
+    <!-- Main Content Centered in a Card -->
+    <v-container class="d-flex justify-center align-center fill-height">
+      <v-card class="pa-6" max-width="600" elevation="8">
         <v-container>
           <h1>Payment for {{ plan }}</h1>
           <p>Price: ${{ price }}</p>
@@ -21,20 +21,19 @@
             Proceed to Payment
           </v-btn>
         </v-container>
-      </v-main>
-    </v-layout>
-  </v-card>
+      </v-card>
+    </v-container>
+  </v-layout>
 </template>
 
 <script setup>
 import { useRoute } from "vue-router";
-import Sidebar from "../components/layouts/Sidebar.vue"; // Import Sidebar component
+import Sidebar from "../components/layouts/Sidebar.vue";
 
 const route = useRoute();
-const plan = route.query.plan; // Get the plan name from query parameters
-const price = route.query.price; // Get the price from query parameters
+const plan = route.query.plan;
+const price = route.query.price;
 
-// Define benefits for each plan
 const planBenefits = {
   "Basic Plan": [
     "5 meals per week",
@@ -58,27 +57,24 @@ const planBenefits = {
   ],
 };
 
-// Get the benefits for the selected plan
 const benefits = planBenefits[plan] || ["No benefits available for this plan."];
 
-// Handle payment
 const handlePayment = async () => {
   try {
     const response = await fetch("http://localhost:8000/api/pay-by-stripe", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        plan_name: plan, // Plan name (e.g., "Basic Plan")
-        price: price, // Price in dollars (e.g., 19.99)
-        success_url: "http://localhost:5173/payment-success", // Success redirect URL
-        cancel_url: "http://localhost:5173/payment-cancel", // Cancel redirect URL
+        plan_name: plan,
+        price: price,
+        success_url: "http://localhost:5173/payment-success",
+        cancel_url: "http://localhost:5173/payment-cancel",
       }),
     });
 
     const data = await response.json();
-
     if (data.url) {
-      window.location.href = data.url; // Redirect to Stripe Checkout
+      window.location.href = data.url;
     } else {
       alert("Error creating payment session.");
     }
@@ -90,9 +86,8 @@ const handlePayment = async () => {
 </script>
 
 <style scoped>
-/* Add some spacing for the main content */
-v-main {
-  padding: 20px;
+.v-container {
+  height: 60vh;
 }
 
 ul {
