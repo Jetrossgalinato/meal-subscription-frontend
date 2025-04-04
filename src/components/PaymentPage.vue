@@ -1,15 +1,26 @@
 <template>
-  <v-container>
-    <h1>Payment for {{ plan }}</h1>
-    <p>Price: ${{ price }}</p>
-    <v-btn color="#D84315" class="mt-4" @click="handlePayment">
-      Proceed to Payment
-    </v-btn>
-  </v-container>
+  <v-card>
+    <v-layout>
+      <!-- Sidebar Component -->
+      <Sidebar />
+
+      <!-- Main Content -->
+      <v-main>
+        <v-container>
+          <h1>Payment for {{ plan }}</h1>
+          <p>Price: ${{ price }}</p>
+          <v-btn color="#D84315" class="mt-4" @click="handlePayment">
+            Proceed to Payment
+          </v-btn>
+        </v-container>
+      </v-main>
+    </v-layout>
+  </v-card>
 </template>
 
 <script setup>
 import { useRoute } from "vue-router";
+import Sidebar from "../components/layouts/Sidebar.vue"; // Import Sidebar component
 
 const route = useRoute();
 const plan = route.query.plan; // Get the plan name from query parameters
@@ -41,3 +52,10 @@ const handlePayment = async () => {
   }
 };
 </script>
+
+<style scoped>
+/* Add some spacing for the main content */
+v-main {
+  padding: 20px;
+}
+</style>
