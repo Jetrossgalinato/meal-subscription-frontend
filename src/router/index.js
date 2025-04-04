@@ -107,19 +107,6 @@ const routes = [
       }
     },
   },
-  {
-    path: "/payment",
-    name: "PaymentPage",
-    component: PaymentPage,
-    beforeEnter: (to, from, next) => {
-      const token = localStorage.getItem("auth_token");
-      if (!token) {
-        next("/"); // Redirect to login if not authenticated
-      } else {
-        next(); // Allow access if authenticated
-      }
-    },
-  },
 ];
 
 const router = createRouter({

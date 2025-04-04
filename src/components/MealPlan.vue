@@ -29,9 +29,9 @@
                 <v-btn
                   color="#D84315"
                   class="mt-auto"
-                  @click="goToPayment('Basic Plan', 19.99)"
+                  @click="handlePayment('Basic Plan', 19.99)"
                 >
-                  Subscribe
+                  Proceed to Payment
                 </v-btn>
               </v-card>
             </v-col>
@@ -54,9 +54,9 @@
                 <v-btn
                   color="#D84315"
                   class="mt-auto"
-                  @click="goToPayment('Premium Plan', 39.99)"
+                  @click="handlePayment('Premium Plan', 39.99)"
                 >
-                  Subscribe
+                  Proceed to Payment
                 </v-btn>
               </v-card>
             </v-col>
@@ -80,9 +80,9 @@
                 <v-btn
                   color="#D84315"
                   class="mt-auto"
-                  @click="goToPayment('Family Plan', 59.99)"
+                  @click="handlePayment('Family Plan', 59.99)"
                 >
-                  Subscribe
+                  Proceed to Payment
                 </v-btn>
               </v-card>
             </v-col>
@@ -95,16 +95,30 @@
 
 <script setup>
 import Sidebar from "../components/layouts/Sidebar.vue"; // Import Sidebar component
-import { useRouter } from "vue-router"; // Import Vue Router
 
-const router = useRouter();
+const handlePayment = async (plan, price) => {
+  try {
+    const response = await fetch("http://localhost:8000/api/pay-by-stripe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        plan_name: plan, // Plan name (e.g., "Basic Plan")
+        price: price, // Price in dollars (e.g., 19.99)
+        success_url: "http://localhost:5173/payment-success", // Success redirect URL
+        cancel_url: "http://localhost:5173/payment-cancel", // Cancel redirect URL
+      }),
+    });
 
-// Navigate to the payment page
-const goToPayment = (planName, price) => {
-  router.push({
-    name: "PaymentPage", // The route name for the payment page
-    query: { plan: planName, price: price }, // Pass the plan name and price as query parameters
-  });
+    const data = await response.json();
+    if (data.url) {
+      window.location.href = data.url; // Redirect to Stripe Checkout
+    } else {
+      alert("Error creating payment session.");
+    }
+  } catch (error) {
+    console.error("Payment error:", error);
+    alert("Failed to process payment.");
+  }
 };
 </script>
 
