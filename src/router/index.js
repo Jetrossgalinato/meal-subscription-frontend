@@ -7,7 +7,6 @@ import Profile from "../components/Profile.vue";
 import Main from "../components/Main.vue";
 import AdminDashboard from "../components/AdminView/AdminDashboard.vue";
 import MealPlan from "../components/MealPlan.vue";
-import PaymentPage from "../components/PaymentPage.vue";
 
 const routes = [
   {

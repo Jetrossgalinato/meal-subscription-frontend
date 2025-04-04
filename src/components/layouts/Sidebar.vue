@@ -53,6 +53,14 @@
             @click="goToHome"
           ></v-list-item>
 
+          <!-- Cart Section -->
+          <v-list-item
+            prepend-icon="mdi-cart"
+            title="Cart"
+            class="sidebar-text"
+            @click="goToCart"
+          ></v-list-item>
+
           <!-- Admin Dashboard Section (Visible only for admins) -->
           <v-list-item
             v-if="isAdmin"
@@ -137,6 +145,11 @@ export default {
       router.push("/home");
     };
 
+    // Navigate to the Cart page
+    const goToCart = () => {
+      router.push("/cart");
+    };
+
     // Navigate to the Admin Dashboard
     const goToDashboard = () => {
       router.push("/admin/dashboard");
@@ -160,6 +173,7 @@ export default {
       editProfile,
       goToProfile,
       goToHome,
+      goToCart,
       goToDashboard,
       logout,
     };
