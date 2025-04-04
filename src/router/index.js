@@ -7,6 +7,7 @@ import Profile from "../components/Profile.vue";
 import Main from "../components/Main.vue";
 import AdminDashboard from "../components/AdminView/AdminDashboard.vue";
 import MealPlan from "../components/MealPlan.vue";
+import CartPage from "../components/CartPage.vue";
 
 const routes = [
   {
@@ -97,6 +98,19 @@ const routes = [
     path: "/meal-plan",
     name: "MealPlan",
     component: MealPlan,
+    beforeEnter: (to, from, next) => {
+      const token = localStorage.getItem("auth_token");
+      if (!token) {
+        next("/"); // Redirect to login if not authenticated
+      } else {
+        next(); // Allow access if authenticated
+      }
+    },
+  },
+  {
+    path: "/cart",
+    name: "CartPage",
+    component: CartPage,
     beforeEnter: (to, from, next) => {
       const token = localStorage.getItem("auth_token");
       if (!token) {
