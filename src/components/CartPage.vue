@@ -11,15 +11,15 @@
           <v-col cols="12" md="6" v-for="item in cartItems" :key="item.id">
             <v-card class="mb-4" elevation="3">
               <v-img
-                :src="item.image"
+                :src="item.meal.image"
                 alt="Meal Image"
                 height="200px"
                 cover
               ></v-img>
-              <v-card-title>{{ item.name }}</v-card-title>
+              <v-card-title>{{ item.meal.name }}</v-card-title>
               <v-card-text>
-                <p>{{ item.description }}</p>
-                <p><strong>Price:</strong> ${{ item.price }}</p>
+                <p>{{ item.meal.description }}</p>
+                <p><strong>Price:</strong> ${{ item.meal.price }}</p>
 
                 <!-- Quantity Management -->
                 <div class="quantity-controls">
@@ -39,7 +39,7 @@
                 <!-- Total Price for the Item -->
                 <p>
                   <strong>Total:</strong> ${{
-                    (item.price * item.quantity).toFixed(2)
+                    (item.meal.price * item.quantity).toFixed(2)
                   }}
                 </p>
               </v-card-text>
@@ -67,8 +67,8 @@
 </template>
 
 <script setup>
-import Sidebar from "../components/layouts/Sidebar.vue"; // Import the Sidebar component
-import { ref, onMounted } from "vue";
+import Sidebar from "../components/layouts/Sidebar.vue";
+import { ref, onMounted, computed } from "vue";
 
 const cartItems = ref([]);
 
@@ -77,15 +77,44 @@ const fetchCartItems = async () => {
   try {
     const response = await fetch("http://localhost:8000/api/cart", {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("auth_token")}`, // Include auth token
+        Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
       },
     });
 
-    cartItems.value = await response.json();
+    const data = await response.json();
+
+    // Ensure all items have a quantity and correct data structure
+    cartItems.value = data.map((item) => ({
+      ...item,
+      meal: {
+        ...item.meal,
+        image: item.meal.image || "default-image-path.jpg", // Fallback image if none exists
+      },
+      quantity: item.quantity || 1,
+    }));
   } catch (error) {
     console.error("Error fetching cart items:", error);
   }
 };
+
+// Increase quantity
+const increaseQuantity = (item) => {
+  item.quantity += 1;
+};
+
+// Decrease quantity
+const decreaseQuantity = (item) => {
+  if (item.quantity > 1) {
+    item.quantity -= 1;
+  }
+};
+
+// Total price of all cart items
+const totalPrice = computed(() => {
+  return cartItems.value.reduce((total, item) => {
+    return total + item.meal.price * item.quantity;
+  }, 0);
+});
 
 // Remove a meal from the cart
 const removeFromCart = async (item) => {
@@ -93,7 +122,7 @@ const removeFromCart = async (item) => {
     const response = await fetch(`http://localhost:8000/api/cart/${item.id}`, {
       method: "DELETE",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("auth_token")}`, // Include auth token
+        Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
       },
     });
 
