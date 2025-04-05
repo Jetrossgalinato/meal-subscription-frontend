@@ -28,7 +28,11 @@
                 <v-card-title>{{ meal.name }}</v-card-title>
                 <v-card-text>
                   <p>{{ meal.description }}</p>
-                  <p><strong>Price:</strong> ${{ meal.price }}</p>
+                  <p>
+                    <strong>Price:</strong> ${{
+                      parseFloat(meal.price).toFixed(2)
+                    }}
+                  </p>
                 </v-card-text>
                 <v-card-actions>
                   <v-btn color="#D84315" @click="goToMealPlan(meal)">
@@ -49,43 +53,47 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router"; // Import Vue Router
-import Sidebar from "../components/layouts/Sidebar.vue"; // Import Sidebar component
+import { useRouter } from "vue-router";
+import Sidebar from "../components/layouts/Sidebar.vue";
 
-// List of meals
 const meals = ref([]);
-const router = useRouter(); // Initialize Vue Router
+const router = useRouter();
 
-// Fetch meals from the backend
+// Fetch meals from API
 const fetchMeals = async () => {
   try {
     const response = await fetch("http://localhost:8000/api/meals");
-    meals.value = await response.json();
+    const data = await response.json();
+    meals.value = data.map((meal) => ({
+      ...meal,
+      price: parseFloat(meal.price) || 0,
+      image: meal.image || "default-image-path.jpg",
+    }));
   } catch (error) {
     console.error("Error fetching meals:", error);
   }
 };
 
-// Navigate to MealPlan.vue
+// Navigate to Meal Plan page
 const goToMealPlan = (meal) => {
   router.push({
-    name: "MealPlan", // The route name for MealPlan.vue
-    params: { mealId: meal.id }, // Pass the meal ID as a route parameter
+    name: "MealPlan",
+    params: { mealId: meal.id },
   });
 };
 
-// Add meal to cart
+// Add meal to cart with quantity = 1
 const addToCart = async (meal) => {
   try {
     const response = await fetch("http://localhost:8000/api/cart", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("auth_token")}`, // Include auth token
+        Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
       },
       body: JSON.stringify({
         meal_id: meal.id,
-        quantity: 1, // Default quantity is 1
+        quantity: 1,
       }),
     });
 
@@ -108,13 +116,14 @@ onMounted(() => {
 
 <style scoped>
 .main-background {
-  background-image: url("../assets/background.jpg"); /* Replace with your background image path */
+  background-image: url("../assets/background.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   min-height: 100vh;
   padding: 20px;
 }
+
 h1 {
   color: #d84315;
 }

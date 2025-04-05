@@ -11,11 +11,12 @@
           <v-col cols="12" md="6" v-for="item in cartItems" :key="item.id">
             <v-card class="mb-4" elevation="3">
               <v-img
-                :src="item.meal.image"
+                :src="item.meal.image_url"
                 alt="Meal Image"
                 height="200px"
                 cover
               ></v-img>
+
               <v-card-title>{{ item.meal.name }}</v-card-title>
               <v-card-text>
                 <p>{{ item.meal.description }}</p>
@@ -88,8 +89,8 @@ const fetchCartItems = async () => {
       ...item,
       meal: {
         ...item.meal,
-        image: item.meal.image || "default-image-path.jpg", // Fallback image
-        price: parseFloat(item.meal.price) || 0, // Ensure price is a number
+        image_url: item.meal.image_url || "default-image-path.jpg",
+        price: parseFloat(item.meal.price) || 0,
       },
       quantity: 1, // Default quantity to 1
     }));
