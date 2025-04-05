@@ -1,88 +1,116 @@
 <template>
-  <v-layout>
-    <!-- Sidebar Component -->
-    <Sidebar />
+  <v-card>
+    <v-layout>
+      <!-- Sidebar Component -->
+      <Sidebar />
 
-    <!-- Main Content -->
-    <v-main>
-      <v-container>
-        <h1>Your Cart</h1>
+      <!-- Main Content -->
+      <v-main>
+        <v-container>
+          <h1>Your Cart</h1>
 
-        <v-row>
-          <v-col cols="12" md="6" v-for="item in cartItems" :key="item.id">
-            <v-card class="mb-4" elevation="3">
-              <v-img
-                :src="item.meal.image_url"
-                alt="Meal Image"
-                height="200px"
-                cover
-              ></v-img>
+          <v-row dense>
+            <v-col
+              cols="12"
+              sm="6"
+              md="4"
+              lg="3"
+              v-for="item in cartItems"
+              :key="item.id"
+            >
+              <v-card class="mb-2" elevation="2" dense>
+                <v-img
+                  :src="item.meal.image_url"
+                  alt="Meal Image"
+                  height="140px"
+                  cover
+                ></v-img>
 
-              <v-card-title>{{ item.meal.name }}</v-card-title>
-              <v-card-text>
-                <p>{{ item.meal.description }}</p>
-                <p><strong>Price:</strong> ${{ item.meal.price.toFixed(2) }}</p>
+                <v-card-title class="text-subtitle-1 py-2">{{
+                  item.meal.name
+                }}</v-card-title>
+                <v-card-text class="py-1">
+                  <p class="text-body-2">{{ item.meal.description }}</p>
+                  <p class="text-body-2 mb-1">
+                    <strong>Price:</strong> ${{ item.meal.price.toFixed(2) }}
+                  </p>
 
-                <!-- Quantity Management -->
-                <div class="quantity-controls">
+                  <!-- Quantity Management - Compact Version -->
+                  <div class="quantity-controls-compact">
+                    <v-btn
+                      density="compact"
+                      icon
+                      size="small"
+                      @click="decreaseQuantity(item)"
+                      :disabled="item.quantity <= 1"
+                    >
+                      <v-icon size="small">mdi-minus</v-icon>
+                    </v-btn>
+                    <span class="quantity-compact">{{ item.quantity }}</span>
+                    <v-btn
+                      density="compact"
+                      icon
+                      size="small"
+                      @click="increaseQuantity(item)"
+                    >
+                      <v-icon size="small">mdi-plus</v-icon>
+                    </v-btn>
+                  </div>
+
+                  <!-- Total Price for the Item -->
+                  <p class="text-body-2 mt-1">
+                    <strong>Total:</strong> ${{
+                      (item.meal.price * item.quantity).toFixed(2)
+                    }}
+                  </p>
+                </v-card-text>
+
+                <!-- Delete Button -->
+                <v-card-actions class="py-1">
                   <v-btn
-                    icon
-                    @click="decreaseQuantity(item)"
-                    :disabled="item.quantity <= 1"
+                    color="red"
+                    size="small"
+                    density="compact"
+                    variant="text"
+                    @click="removeFromCart(item)"
                   >
-                    <v-icon>mdi-minus</v-icon>
+                    Remove
                   </v-btn>
-                  <span class="quantity">{{ item.quantity }}</span>
-                  <v-btn icon @click="increaseQuantity(item)">
-                    <v-icon>mdi-plus</v-icon>
-                  </v-btn>
-                </div>
+                </v-card-actions>
+              </v-card>
+            </v-col>
+          </v-row>
 
-                <!-- Total Price for the Item -->
-                <p>
-                  <strong>Total:</strong> ${{
-                    (item.meal.price * item.quantity).toFixed(2)
-                  }}
-                </p>
-              </v-card-text>
+          <!-- Display Total Price for All Items - Moved to the left -->
+          <div v-if="cartItems.length" class="cart-total cart-total-left">
+            <h2>Total Price: ${{ totalPrice.toFixed(2) }}</h2>
+          </div>
+          <div v-else>
+            <p>Your cart is empty.</p>
+          </div>
 
-              <!-- Delete Button -->
-              <v-card-actions>
-                <v-btn color="red" @click="removeFromCart(item)">
-                  Remove
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-        </v-row>
-        <!-- Display Total Price for All Items - Moved to the left -->
-        <div v-if="cartItems.length" class="cart-total cart-total-left">
-          <h2>Total Price: ${{ totalPrice.toFixed(2) }}</h2>
-        </div>
-        <div v-else>
-          <p>Your cart is empty.</p>
-        </div>
-
-        <!-- Checkout Button -->
-        <v-btn
-          color="green"
-          class="mt-2"
-          large
-          @click="checkout"
-          :disabled="!cartItems.length"
-        >
-          Proceed to Checkout
-        </v-btn>
-      </v-container>
-    </v-main>
-  </v-layout>
+          <!-- Checkout Button -->
+          <v-btn
+            color="green"
+            class="mt-2"
+            @click="checkout"
+            :disabled="!cartItems.length"
+          >
+            Proceed to Checkout
+          </v-btn>
+        </v-container>
+      </v-main>
+    </v-layout>
+  </v-card>
 </template>
 
 <script setup>
 import Sidebar from "../components/layouts/Sidebar.vue";
 import { ref, onMounted, computed } from "vue";
+import { useRouter } from "vue-router";
 
 const cartItems = ref([]);
+const router = useRouter();
 
 // Fetch cart items from the backend
 const fetchCartItems = async () => {
@@ -193,27 +221,22 @@ h1 {
   margin-bottom: 20px;
 }
 
-.quantity-controls {
+.quantity-controls-compact {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-top: 10px;
+  margin: 5px 0;
 }
 
-.quantity {
-  font-weight: bold;
-  font-size: 1.2rem;
+.quantity-compact {
+  margin: 0 8px;
+  font-size: 14px;
 }
 
 .cart-total {
-  margin-top: 20px;
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #5d4037;
+  margin: 15px 0;
 }
 
 .cart-total-left {
   text-align: left;
-  margin-bottom: 20px;
 }
 </style>
