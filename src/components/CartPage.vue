@@ -62,6 +62,25 @@
         <div v-else>
           <p>Your cart is empty.</p>
         </div>
+        <!-- Location for Delivery -->
+        <v-text-field
+          label="Delivery Location"
+          v-model="deliveryLocation"
+          outlined
+          dense
+          class="mt-4"
+        />
+
+        <!-- Checkout Button -->
+        <v-btn
+          color="green"
+          class="mt-2"
+          large
+          @click="checkout"
+          :disabled="!deliveryLocation || !cartItems.length"
+        >
+          Proceed to Checkout
+        </v-btn>
       </v-container>
     </v-main>
   </v-layout>
@@ -72,6 +91,7 @@ import Sidebar from "../components/layouts/Sidebar.vue";
 import { ref, onMounted, computed } from "vue";
 
 const cartItems = ref([]);
+const deliveryLocation = ref("");
 
 // Fetch cart items from the backend
 const fetchCartItems = async () => {
@@ -92,7 +112,7 @@ const fetchCartItems = async () => {
         image_url: item.meal.image_url || "default-image-path.jpg",
         price: parseFloat(item.meal.price) || 0,
       },
-      quantity: 1, // Default quantity to 1
+      quantity: 1,
     }));
   } catch (error) {
     console.error("Error fetching cart items:", error);
@@ -138,6 +158,37 @@ const removeFromCart = async (item) => {
     }
   } catch (error) {
     console.error("Error removing meal from cart:", error);
+  }
+};
+
+// Checkout Handler
+const checkout = async () => {
+  try {
+    const response = await fetch("http://localhost:8000/api/checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+      },
+      body: JSON.stringify({
+        items: cartItems.value.map((item) => ({
+          meal_id: item.meal.id,
+          quantity: item.quantity,
+        })),
+        location: deliveryLocation.value,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (data.checkout_url) {
+      window.location.href = data.checkout_url;
+    } else {
+      alert("Failed to redirect to payment.");
+    }
+  } catch (error) {
+    console.error("Checkout error:", error);
+    alert("Checkout failed.");
   }
 };
 
