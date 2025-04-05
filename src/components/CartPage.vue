@@ -7,6 +7,7 @@
     <v-main>
       <v-container>
         <h1>Your Cart</h1>
+
         <v-row>
           <v-col cols="12" md="6" v-for="item in cartItems" :key="item.id">
             <v-card class="mb-4" elevation="3">
@@ -54,9 +55,8 @@
             </v-card>
           </v-col>
         </v-row>
-
-        <!-- Display Total Price for All Items -->
-        <div v-if="cartItems.length" class="cart-total">
+        <!-- Display Total Price for All Items - Moved to the left -->
+        <div v-if="cartItems.length" class="cart-total cart-total-left">
           <h2>Total Price: ${{ totalPrice.toFixed(2) }}</h2>
         </div>
         <div v-else>
@@ -207,9 +207,13 @@ h1 {
 
 .cart-total {
   margin-top: 20px;
-  text-align: right;
   font-size: 1.5rem;
   font-weight: bold;
   color: #5d4037;
+}
+
+.cart-total-left {
+  text-align: left;
+  margin-bottom: 20px;
 }
 </style>
