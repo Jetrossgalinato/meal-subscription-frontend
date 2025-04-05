@@ -62,14 +62,6 @@
         <div v-else>
           <p>Your cart is empty.</p>
         </div>
-        <!-- Location for Delivery -->
-        <v-text-field
-          label="Delivery Location"
-          v-model="deliveryLocation"
-          outlined
-          dense
-          class="mt-4"
-        />
 
         <!-- Checkout Button -->
         <v-btn
@@ -77,7 +69,7 @@
           class="mt-2"
           large
           @click="checkout"
-          :disabled="!deliveryLocation || !cartItems.length"
+          :disabled="!cartItems.length"
         >
           Proceed to Checkout
         </v-btn>
@@ -91,7 +83,6 @@ import Sidebar from "../components/layouts/Sidebar.vue";
 import { ref, onMounted, computed } from "vue";
 
 const cartItems = ref([]);
-const deliveryLocation = ref("");
 
 // Fetch cart items from the backend
 const fetchCartItems = async () => {
@@ -161,7 +152,7 @@ const removeFromCart = async (item) => {
   }
 };
 
-// Checkout Handler
+// Checkout Handler (no location)
 const checkout = async () => {
   try {
     const response = await fetch("http://localhost:8000/api/checkout", {
@@ -175,7 +166,6 @@ const checkout = async () => {
           meal_id: item.meal.id,
           quantity: item.quantity,
         })),
-        location: deliveryLocation.value,
       }),
     });
 
