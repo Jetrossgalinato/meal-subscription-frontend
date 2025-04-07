@@ -1,5 +1,4 @@
 <template>
-  // LoginForm.vue
   <v-card
     class="d-flex justify-center align-center login-background"
     style="height: 100vh; width: 100vw"
