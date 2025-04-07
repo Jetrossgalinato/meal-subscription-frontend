@@ -63,7 +63,7 @@
 
           <!-- Admin Dashboard Section (Visible only for admins) -->
           <v-list-item
-            v-if="isAdmin"
+            v-if="isAdmin == true"
             prepend-icon="mdi-view-dashboard"
             title="Dashboard"
             class="sidebar-text"
@@ -128,7 +128,10 @@ export default {
     };
 
     // Check if the user is an admin
-    const isAdmin = ref(localStorage.getItem("is_admin"));
+    const isAdmin = ref(
+      localStorage.getItem("is_admin") === "1" ||
+        localStorage.getItem("is_admin") === "true"
+    );
 
     // Navigate to the Edit Profile page
     const editProfile = () => {
