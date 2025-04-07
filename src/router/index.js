@@ -86,7 +86,7 @@ const routes = [
     component: AdminDashboard,
     beforeEnter: (to, from, next) => {
       const token = localStorage.getItem("auth_token");
-      const isAdmin = localStorage.getItem("is_admin") === "1"; // Check if the user is an admin
+      const isAdmin = localStorage.getItem("is_admin"); // Check if the user is an admin
       if (token && isAdmin) {
         next(); // Allow access if authenticated and admin
       } else {

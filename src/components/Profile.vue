@@ -20,7 +20,7 @@
               <!-- Avatar -->
               <v-col cols="12" md="4" class="text-center">
                 <v-img
-                  :src="user.avatar || 'https://via.placeholder.com/150'"
+                  :src="user.avatar"
                   max-height="150"
                   max-width="150"
                   class="mb-4"

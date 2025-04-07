@@ -9,7 +9,7 @@
       >
         <v-list>
           <v-list-item
-            :prepend-avatar="user.avatar || 'https://via.placeholder.com/150'"
+            :prepend-avatar="user.avatar || 'https://placehold.co/400'"
             :title="user.name"
             :subtitle="user.email"
             class="sidebar-text"
@@ -128,7 +128,7 @@ export default {
     };
 
     // Check if the user is an admin
-    const isAdmin = ref(localStorage.getItem("is_admin") === "1");
+    const isAdmin = ref(localStorage.getItem("is_admin"));
 
     // Navigate to the Edit Profile page
     const editProfile = () => {

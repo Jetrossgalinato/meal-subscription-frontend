@@ -20,7 +20,7 @@
             <v-carousel-item v-for="meal in meals" :key="meal.id">
               <v-card class="mx-auto" max-width="400" elevation="10">
                 <v-img
-                  :src="meal.image"
+                  :src="meal.image || `https://placehold.co/400`"
                   alt="Meal Image"
                   height="200px"
                   cover
