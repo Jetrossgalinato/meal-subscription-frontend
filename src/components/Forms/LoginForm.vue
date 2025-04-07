@@ -86,7 +86,7 @@ const handleLogin = async () => {
       alert("Login successful!");
 
       // Redirect based on user role
-      if (user.is_admin === 1) {
+      if (user.is_admin === true) {
         // Explicitly check if is_admin is 1
         router.push("/admin/dashboard"); // Redirect admin to AdminDashboard
       } else {
