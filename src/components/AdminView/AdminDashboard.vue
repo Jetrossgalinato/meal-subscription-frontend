@@ -57,7 +57,7 @@
                     accept="image/*"
                     required
                   ></v-file-input>
-                  <v-btn type="submit" color="primary" class="mt-4">
+                  <v-btn type="submit" color="#d84315" class="mt-4">
                     Upload Meal
                   </v-btn>
                 </v-form>
@@ -151,7 +151,7 @@ onMounted(() => {
 
 <style scoped>
 h1 {
-  color: #1976d2;
+  color: #d84315;
 }
 
 .v-card {

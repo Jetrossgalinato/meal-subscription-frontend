@@ -128,10 +128,7 @@ export default {
     };
 
     // Check if the user is an admin
-    const isAdmin = ref(
-      localStorage.getItem("is_admin") === "1" ||
-        localStorage.getItem("is_admin") === "true"
-    );
+    const isAdmin = ref(localStorage.getItem("is_admin") === "true");
 
     // Navigate to the Edit Profile page
     const editProfile = () => {
