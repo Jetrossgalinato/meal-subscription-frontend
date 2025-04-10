@@ -81,6 +81,16 @@
             </v-col>
           </v-row>
 
+          <v-divider></v-divider>
+          <row>
+            <v-col cols="12" sm="6" md="4" lg="3" class="mt-2">
+              <h2>
+                <v-icon left size="25">mdi-map-marker-outline</v-icon>
+                Delivery address
+              </h2>
+              <div id="map" style="height: 300px"></div>
+            </v-col>
+          </row>
           <!-- Display Total Price for All Items - Moved to the left -->
           <div v-if="cartItems.length" class="cart-total cart-total-left">
             <h2>Total Price: ${{ totalPrice.toFixed(2) }}</h2>
@@ -212,6 +222,10 @@ const checkout = async () => {
 
 onMounted(() => {
   fetchCartItems();
+  const map = L.map("map").setView([8.949, 125.5409], 13);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "&copy; OpenStreetMap contributors",
+  }).addTo(map);
 });
 </script>
 
