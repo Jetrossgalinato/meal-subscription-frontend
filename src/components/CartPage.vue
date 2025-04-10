@@ -89,7 +89,15 @@
                 Delivery address
               </h2>
               <div id="map" style="height: 300px; width: 100%"></div>
-              <p><strong>Delivery Address:</strong> {{ deliveryAddress }}</p>
+              <p style="font-weight: 350; padding-top: 5%; padding-bottom: 5%">
+                {{ deliveryAddress }}
+              </p>
+              <v-text-field
+                v-model="firstName"
+                :rules="rules"
+                label="Delivery Instructions"
+                placeholder="Note to rider - e.g. landmark"
+              ></v-text-field>
             </v-col>
           </row>
           <!-- Display Total Price for All Items - Moved to the left -->
