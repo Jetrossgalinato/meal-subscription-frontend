@@ -89,6 +89,7 @@
                 Delivery address
               </h2>
               <div id="map" style="height: 300px; width: 100%"></div>
+              <p><strong>Delivery Address:</strong> {{ deliveryAddress }}</p>
             </v-col>
           </row>
           <!-- Display Total Price for All Items - Moved to the left -->
@@ -220,11 +221,26 @@ const checkout = async () => {
   }
 };
 
+// move this up to top-level scope
+const deliveryAddress = ref("Locating...");
+
 onMounted(() => {
   fetchCartItems();
 
-  //(8.955316, 125.597942)
   const map = L.map("map").setView([8.955316, 125.597942], 13);
+
+  const fetchAddress = async (lat, lon) => {
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`
+      );
+      const data = await response.json();
+      deliveryAddress.value = data.display_name || "Address not found";
+    } catch (error) {
+      console.error("Reverse geocoding failed:", error);
+      deliveryAddress.value = "Failed to get address.";
+    }
+  };
 
   // Create the marker
   const marker = L.marker([8.955316, 125.597942]).addTo(map);
@@ -235,12 +251,15 @@ onMounted(() => {
     attribution: "&copy; OpenStreetMap contributors",
   }).addTo(map);
 
-  // Update marker on map click
+  // Fetch address initially
+  fetchAddress(8.955316, 125.597942);
+
+  // Update marker + address on click
   map.on("click", function (e) {
-    marker
-      .setLatLng(e.latlng)
-      .bindPopup("New delivery location: " + e.latlng.toString())
-      .openPopup();
+    const { lat, lng } = e.latlng;
+    marker.setLatLng([lat, lng]);
+    marker.bindPopup("New delivery location").openPopup();
+    fetchAddress(lat, lng);
   });
 });
 </script>
