@@ -88,7 +88,7 @@
                 <v-icon left size="25">mdi-map-marker-outline</v-icon>
                 Delivery address
               </h2>
-              <div id="map" style="height: 300px"></div>
+              <div id="map" style="height: 300px; width: 100%"></div>
             </v-col>
           </row>
           <!-- Display Total Price for All Items - Moved to the left -->
@@ -222,10 +222,26 @@ const checkout = async () => {
 
 onMounted(() => {
   fetchCartItems();
-  const map = L.map("map").setView([8.949, 125.5409], 13);
+
+  //(8.955316, 125.597942)
+  const map = L.map("map").setView([8.955316, 125.597942], 13);
+
+  // Create the marker
+  const marker = L.marker([8.955316, 125.597942]).addTo(map);
+  marker.bindPopup("Your Delivery Location").openPopup();
+
+  // Add tile layer
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "&copy; OpenStreetMap contributors",
   }).addTo(map);
+
+  // Update marker on map click
+  map.on("click", function (e) {
+    marker
+      .setLatLng(e.latlng)
+      .bindPopup("New delivery location: " + e.latlng.toString())
+      .openPopup();
+  });
 });
 </script>
 
