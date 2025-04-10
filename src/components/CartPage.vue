@@ -84,7 +84,7 @@
           <v-divider></v-divider>
           <row>
             <v-col cols="12" sm="6" md="4" lg="3" class="mt-2">
-              <h2>
+              <h2 style="padding-bottom: 5px">
                 <v-icon left size="25">mdi-map-marker-outline</v-icon>
                 Delivery address
               </h2>
@@ -95,14 +95,42 @@
               <v-text-field
                 v-model="firstName"
                 :rules="rules"
-                label="Delivery Instructions"
+                label="Delivery instructions"
                 placeholder="Note to rider - e.g. landmark"
               ></v-text-field>
             </v-col>
           </row>
+          <v-divider></v-divider>
+          <!-- Order Summary -->
+          <v-row>
+            <v-col cols="12" class="mt-2">
+              <h2 style="padding-bottom: 5px">
+                <v-icon left size="25">mdi-list-box-outline</v-icon>
+                Order Summary
+              </h2>
+              <div v-for="item in cartItems" :key="item.id">
+                <p style="font-weight: 300">
+                  {{ item.quantity }}x {{ item.meal.name }}
+                  <span style="font-weight: 400; margin-left: 10px">
+                    ${{ item.meal.price.toFixed(2) }}
+                  </span>
+                </p>
+              </div>
+              <br />
+              <p>
+                <strong>Subtotal:</strong>
+                ${{ subtotal.toFixed(2) }}
+              </p>
+              <p>
+                <strong>Delivery Fee:</strong> ${{ deliveryFee.toFixed(2) }}
+              </p>
+            </v-col>
+          </v-row>
+
           <!-- Display Total Price for All Items - Moved to the left -->
           <div v-if="cartItems.length" class="cart-total cart-total-left">
             <h2>Total Price: ${{ totalPrice.toFixed(2) }}</h2>
+            <!-- Display total price -->
           </div>
           <div v-else>
             <p>Your cart is empty.</p>
@@ -131,6 +159,18 @@ import { useRouter } from "vue-router";
 const cartItems = ref([]);
 const router = useRouter();
 
+// Total price of all cart items
+const subtotal = computed(() => {
+  return cartItems.value.reduce((total, item) => {
+    return total + item.meal.price * item.quantity;
+  }, 0);
+});
+
+const deliveryFee = 5.0; // Define the delivery fee
+
+const totalPrice = computed(() => {
+  return subtotal.value + deliveryFee; // Add delivery fee to subtotal
+});
 // Fetch cart items from the backend
 const fetchCartItems = async () => {
   try {
@@ -169,13 +209,6 @@ const decreaseQuantity = (item) => {
   }
 };
 
-// Total price of all cart items
-const totalPrice = computed(() => {
-  return cartItems.value.reduce((total, item) => {
-    return total + item.meal.price * item.quantity;
-  }, 0);
-});
-
 // Remove a meal from the cart
 const removeFromCart = async (item) => {
   try {
@@ -213,6 +246,8 @@ const checkout = async () => {
           meal_id: item.meal.id,
           quantity: item.quantity,
         })),
+        location: deliveryAddress.value, // Include the delivery address
+        delivery_fee: deliveryFee, // Include the delivery fee
       }),
     });
 
