@@ -159,7 +159,13 @@ export default {
       localStorage.removeItem("auth_token"); // Clear the token
       localStorage.removeItem("user_id"); // Clear the user ID
       localStorage.removeItem("is_admin"); // Clear the admin status
-      router.push("/"); // Redirect to login
+
+      snackbarMessage.value = "Logged out successfully"; // Show logout message
+      snackbar.value = true; // Show the snackbar
+
+      setTimeout(() => {
+        router.push("/"); // Redirect to login
+      },1500); // Redirect after 1.5 seconds
     };
 
     // Call fetchUserData when the component is mounted
