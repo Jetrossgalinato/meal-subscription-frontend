@@ -79,7 +79,6 @@
           ></v-list-item>
         </v-list>
       </v-navigation-drawer>
-
       <v-main style="height: 100vh"></v-main>
     </v-layout>
   </v-card>
@@ -160,12 +159,10 @@ export default {
       localStorage.removeItem("user_id"); // Clear the user ID
       localStorage.removeItem("is_admin"); // Clear the admin status
 
-      snackbarMessage.value = "Logged out successfully"; // Show logout message
-      snackbar.value = true; // Show the snackbar
-
-      setTimeout(() => {
-        router.push("/"); // Redirect to login
-      },1500); // Redirect after 1.5 seconds
+      alert("You have been logged out successfully.");
+      
+      router.push("/"); // Redirect to login
+     
     };
 
     // Call fetchUserData when the component is mounted
