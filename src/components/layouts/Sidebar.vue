@@ -112,7 +112,7 @@ export default {
       try {
         const userId = localStorage.getItem("user_id") || 1;
         const response = await axios.get(
-          `http://localhost:8000/api/user/${userId}`
+          `http://192.168.1.23/api/user/${userId}`
         );
         const userData = response.data;
 
