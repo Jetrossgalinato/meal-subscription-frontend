@@ -69,7 +69,7 @@ const togglePasswordVisibility = () => {
 const handleLogin = async () => {
   if (email.value && password.value) {
     try {
-      const response = await axios.post("http://localhost:8000/api/login", {
+      const response = await axios.post("http://192.168.1.23/api/login", {
         email: email.value,
         password: password.value,
       });
