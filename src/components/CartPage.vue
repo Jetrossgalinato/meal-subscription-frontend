@@ -212,7 +212,7 @@ const decreaseQuantity = (item) => {
 // Remove a meal from the cart
 const removeFromCart = async (item) => {
   try {
-    const response = await fetch(`http://localhost:8000/api/cart/${item.id}`, {
+    const response = await fetch(`http://192.168.1.23/api/cart/${item.id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
@@ -235,7 +235,7 @@ const removeFromCart = async (item) => {
 // Checkout Handler (no location)
 const checkout = async () => {
   try {
-    const response = await fetch("http://localhost:8000/api/checkout", {
+    const response = await fetch("http://192.168.1.23/api/checkout", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
