@@ -108,7 +108,7 @@ const meal = ref({
 const fetchAdminStats = async () => {
   try {
     const response = await axios.get(
-      "http://localhost:8000/api/admin/dashboard"
+      "http://192.168.1.23/api/admin/dashboard"
     );
     stats.value = response.data.data; // Update stats with backend data
   } catch (error) {
@@ -126,7 +126,7 @@ const uploadMeal = async () => {
     formData.append("image", meal.value.image);
 
     const response = await axios.post(
-      "http://localhost:8000/api/meals",
+      "http://192.168.1.23/api/meals",
       formData,
       {
         headers: {

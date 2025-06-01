@@ -62,7 +62,7 @@ const router = useRouter();
 // Fetch meals from API
 const fetchMeals = async () => {
   try {
-    const response = await fetch("http://localhost:8000/api/meals");
+    const response = await fetch("http://192.168.1.23/api/meals");
     const data = await response.json();
     meals.value = data.map((meal) => ({
       ...meal,
@@ -85,7 +85,7 @@ const goToMealPlan = (meal) => {
 // Add meal to cart with quantity = 1
 const addToCart = async (meal) => {
   try {
-    const response = await fetch("http://localhost:8000/api/cart", {
+    const response = await fetch("http://192.168.1.23/api/cart", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

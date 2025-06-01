@@ -174,7 +174,7 @@ const totalPrice = computed(() => {
 // Fetch cart items from the backend
 const fetchCartItems = async () => {
   try {
-    const response = await fetch("http://localhost:8000/api/cart", {
+    const response = await fetch("http://192.168.1.23/api/cart", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
       },

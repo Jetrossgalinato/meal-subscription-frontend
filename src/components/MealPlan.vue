@@ -98,7 +98,7 @@ import Sidebar from "../components/layouts/Sidebar.vue"; // Import Sidebar compo
 
 const handlePayment = async (plan, price) => {
   try {
-    const response = await fetch("http://localhost:8000/api/pay-by-stripe", {
+    const response = await fetch("http://192.168.1.23/api/pay-by-stripe", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

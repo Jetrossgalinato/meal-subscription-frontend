@@ -150,7 +150,7 @@ const fetchUserData = async () => {
   try {
     const userId = localStorage.getItem("user_id");
     const response = await axios.get(
-      `http://localhost:8000/api/user/${userId}`
+      `http://192.168.1.23/api/user/${userId}`
     );
     const userData = response.data;
     user.name = userData.name;
@@ -197,7 +197,7 @@ const updateProfile = async () => {
     }
 
     await axios.post(
-      `http://localhost:8000/api/user/${userId}/update`,
+      `http://192.168.1.23/api/user/${userId}/update`,
       formData,
       {
         headers: {
