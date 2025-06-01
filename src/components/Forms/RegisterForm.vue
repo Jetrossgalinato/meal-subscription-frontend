@@ -79,7 +79,7 @@ const handleRegister = async () => {
     confirmPassword.value
   ) {
     try {
-      const response = await axios.post("http://192.168.1.23/api/register", {
+      const response = await axios.post("https://192.168.1.23/api/register", {
         fullname: fullname.value,
         email: email.value,
         password: password.value,
